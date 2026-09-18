@@ -1,0 +1,27 @@
+# Secretos — el repo del hackathon es PÚBLICO
+.env
+.env.*
+*.key
+*.pem
+secrets/
+**/credentials.json
+**/.credentials.json
+
+# Dependencias y build
+node_modules/
+dist/
+build/
+.next/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Entorno local
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Salida del ensayo
+dry-run/node_modules/

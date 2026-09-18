@@ -1,0 +1,55 @@
+{
+  "kind": "layered",
+  "title": "Dark Factory: assembly line with two customs posts",
+  "layers": [
+    {
+      "id": "human",
+      "title": "Human decision",
+      "items": [
+        { "id": "owner", "label": "Product owner", "detail": "Scope, behaviour, merge timing, permission approvals" }
+      ]
+    },
+    {
+      "id": "orchestration",
+      "title": "Orchestration",
+      "items": [
+        { "id": "architect", "label": "architect", "detail": "Plans, splits work, runs the full gate, renders verdicts. Never implements." }
+      ]
+    },
+    {
+      "id": "implementation",
+      "title": "Implementation",
+      "items": [
+        { "id": "builder", "label": "builder", "detail": "JSON API and web UI, built against the conformance checklist" }
+      ]
+    },
+    {
+      "id": "customs",
+      "title": "Customs posts",
+      "items": [
+        { "id": "spec_warden", "label": "spec-warden", "detail": "Literal conformance: field names, status codes, error bodies, data-testid" },
+        { "id": "race_hunter", "label": "race-hunter", "detail": "Atomicity, idempotency replay, malformed input, rounding, time zones" },
+        { "id": "regression_guard", "label": "regression-guard", "detail": "Golden suite, full gate, baseline test count" }
+      ]
+    },
+    {
+      "id": "evidence",
+      "title": "Evidence",
+      "items": [
+        { "id": "work_board", "label": "Work board", "detail": "Shared tasks and per-agent swim lanes" },
+        { "id": "room_plan", "label": "Room plan", "detail": "Versioned plan and architecture snapshots" },
+        { "id": "usage_cost", "label": "Usage and cost", "detail": "Tokens and cost per agent, for the case study" }
+      ]
+    }
+  ],
+  "flows": [
+    { "from": "human", "to": "orchestration", "label": "brief and product decisions" },
+    { "from": "orchestration", "to": "customs", "label": "extract conformance checklist first" },
+    { "from": "orchestration", "to": "implementation", "label": "tasks with acceptance criteria" },
+    { "from": "implementation", "to": "customs", "label": "handoff by commit SHA" },
+    { "from": "customs", "to": "implementation", "label": "rejection: expected vs actual" },
+    { "from": "customs", "to": "orchestration", "label": "verdict" },
+    { "from": "orchestration", "to": "human", "label": "product decision needed" },
+    { "from": "customs", "to": "evidence", "label": "verified traces" }
+  ]
+}

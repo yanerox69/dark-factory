@@ -1,0 +1,16 @@
+{
+  "name": "seat-reservation-service",
+  "version": "1.0.0",
+  "description": "Seat reservation dry-run service — zero dependencies, node:http + node:test.",
+  "private": true,
+  "type": "commonjs",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "gate": "node gate.js"
+  }
+}
