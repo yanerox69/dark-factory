@@ -1,0 +1,389 @@
+<title>Dark Factory</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --ground:#EDF1F4; --surface:#FFFFFF; --surface-2:#F6F8FA;
+    --ink:#14202B; --muted:#566878; --rule:#C6D1DA; --rule-soft:#DDE4EA;
+    --accent:#B43C0A; --accent-soft:#FBEDE5;
+    --good:#166B49; --good-soft:#E6F2EC;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'IBM Plex Sans','Segoe UI',Arial,sans-serif;
+    --mono:'IBM Plex Mono','Courier New',monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0E1720; --surface:#16212C; --surface-2:#1B2833;
+      --ink:#E2EAF1; --muted:#8FA3B4; --rule:#283846; --rule-soft:#1F2D39;
+      --accent:#F1793A; --accent-soft:#2A1810;
+      --good:#3FA97A; --good-soft:#12241D;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0E1720; --surface:#16212C; --surface-2:#1B2833;
+    --ink:#E2EAF1; --muted:#8FA3B4; --rule:#283846; --rule-soft:#1F2D39;
+    --accent:#F1793A; --accent-soft:#2A1810;
+    --good:#3FA97A; --good-soft:#12241D;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:var(--body); font-size:16px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1100px; margin:0 auto; padding-inline:20px; padding-block:0}
+  h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0}
+  p{margin:0}
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--accent);
+  }
+
+  /* ---- masthead ---- */
+  header.top{border-bottom:1px solid var(--rule); background:var(--surface)}
+  .masthead{display:flex; flex-direction:column; gap:28px; padding-block:56px 44px}
+  .title-row{display:flex; flex-wrap:wrap; align-items:flex-end; gap:20px 32px}
+  h1{font-size:clamp(40px,7vw,72px); font-weight:700; line-height:1.02; letter-spacing:-.02em}
+  .thesis{font-size:clamp(18px,2.4vw,23px); line-height:1.45; color:var(--muted); max-width:62ch}
+  .facts{
+    display:flex; flex-wrap:wrap; gap:0; border:1px solid var(--rule);
+    border-radius:4px; overflow:hidden; background:var(--surface-2);
+  }
+  .fact{
+    flex:1 1 150px; padding:14px 18px; border-right:1px solid var(--rule-soft);
+    display:flex; flex-direction:column; gap:3px;
+  }
+  .fact:last-child{border-right:none}
+  .fact dt{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  .fact dd{margin:0; font-size:16px; font-weight:600; font-variant-numeric:tabular-nums}
+
+  /* ---- sections ---- */
+  section{padding-block:56px; border-bottom:1px solid var(--rule-soft)}
+  .sec-head{display:flex; flex-direction:column; gap:10px; margin-bottom:28px; max-width:70ch}
+  h2{font-size:clamp(26px,3.6vw,38px); font-weight:600; letter-spacing:-.01em; line-height:1.15}
+  .lede{font-size:17px; color:var(--muted); line-height:1.6}
+
+  /* ---- claim ---- */
+  .claim{
+    border-left:3px solid var(--accent); background:var(--accent-soft);
+    padding:22px 26px; border-radius:0 4px 4px 0; max-width:76ch;
+  }
+  .claim p{font-size:19px; line-height:1.5}
+  .claim strong{font-weight:600}
+
+  /* ---- stations ---- */
+  .stations{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px}
+  .station{
+    text-align:left; font:inherit; color:inherit; cursor:pointer;
+    background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--good);
+    border-radius:4px; padding:18px; display:flex; flex-direction:column; gap:7px;
+    transition:border-color .15s, transform .15s;
+  }
+  .station:hover{transform:translateY(-2px)}
+  .station[aria-pressed="true"]{border-color:var(--accent); border-top-color:var(--accent)}
+  .station.writes{border-top-color:var(--accent)}
+  .station .h{font-family:var(--mono); font-size:14px; font-weight:600}
+  .station .r{font-size:14px; color:var(--muted); line-height:1.45}
+  .badge{
+    align-self:flex-start; font-family:var(--mono); font-size:10px; letter-spacing:.08em;
+    text-transform:uppercase; padding:3px 7px; border-radius:3px;
+    background:var(--good-soft); color:var(--good); font-weight:600;
+  }
+  .badge.writes{background:var(--accent-soft); color:var(--accent)}
+  .detail{
+    margin-top:16px; background:var(--surface-2); border:1px solid var(--rule);
+    border-radius:4px; padding:20px 22px; display:flex; flex-direction:column; gap:10px;
+  }
+  .detail h3{font-size:18px; font-weight:600}
+  .detail .quote{font-size:15px; color:var(--muted); line-height:1.55; font-style:italic}
+  .detail .who{font-family:var(--mono); font-size:12px; color:var(--accent)}
+
+  /* ---- diagram ---- */
+  .diagram-scroll{overflow-x:auto; border:1px solid var(--rule); border-radius:4px; background:var(--surface)}
+  .diagram-scroll svg{display:block; min-width:680px; width:100%; height:auto}
+  .rule-note{
+    margin-top:16px; display:flex; flex-wrap:wrap; gap:10px 26px;
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+  }
+  .rule-note b{color:var(--ink); font-weight:600}
+
+  /* ---- evidence ---- */
+  .evidence{display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr); gap:20px; align-items:start}
+  @media (max-width:760px){ .evidence{grid-template-columns:1fr} }
+  .score{
+    background:var(--surface); border:1px solid var(--rule); border-radius:4px;
+    padding:26px; display:flex; flex-direction:column; gap:4px;
+  }
+  .score .n{font-family:var(--display); font-size:68px; font-weight:700; line-height:1; color:var(--good); font-variant-numeric:tabular-nums}
+  .score .l{font-size:15px; font-weight:600}
+  .score .s{font-size:13px; color:var(--muted); line-height:1.45}
+  .quotes{display:flex; flex-direction:column; gap:12px}
+  .q{background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--rule); border-radius:0 4px 4px 0; padding:16px 20px}
+  .q p{font-size:15px; line-height:1.5}
+  .q .who{font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:6px}
+
+  /* ---- findings ---- */
+  .findings{display:flex; flex-direction:column; gap:0; border:1px solid var(--rule); border-radius:4px; overflow:hidden}
+  .finding{display:grid; grid-template-columns:44px minmax(0,1fr); gap:0; border-bottom:1px solid var(--rule-soft); background:var(--surface)}
+  .finding:last-child{border-bottom:none}
+  .finding .n{
+    display:flex; align-items:flex-start; justify-content:center; padding:18px 0 0;
+    font-family:var(--mono); font-size:12px; color:var(--muted); background:var(--surface-2);
+    border-right:1px solid var(--rule-soft);
+  }
+  .finding .c{padding:18px 22px; display:flex; flex-direction:column; gap:6px}
+  .finding h3{font-size:17px; font-weight:600}
+  .finding p{font-size:15px; color:var(--muted); line-height:1.55}
+  code{font-family:var(--mono); font-size:.9em; background:var(--surface-2); padding:1px 5px; border-radius:3px; border:1px solid var(--rule-soft)}
+
+  /* ---- delete test ---- */
+  .breaks{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px}
+  .brk{background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:18px; display:flex; flex-direction:column; gap:7px}
+  .brk h3{font-size:16px; font-weight:600}
+  .brk p{font-size:14px; color:var(--muted); line-height:1.5}
+  .verdict{margin-top:20px; font-family:var(--display); font-size:clamp(20px,3vw,27px); font-weight:600; letter-spacing:-.01em}
+
+  /* ---- limitation ---- */
+  .limit{background:var(--surface); border:1px solid var(--accent); border-radius:4px; padding:26px 28px; display:flex; flex-direction:column; gap:12px; max-width:78ch}
+  .limit h2{font-size:clamp(22px,3vw,30px)}
+  .limit p{font-size:16px; line-height:1.6; color:var(--muted)}
+  .limit p.lead{color:var(--ink); font-size:18px}
+
+  footer{padding-block:40px 60px}
+  .links{display:flex; flex-wrap:wrap; gap:10px 28px; font-family:var(--mono); font-size:13px; color:var(--muted)}
+  .links b{color:var(--ink); font-weight:600}
+  a{color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+
+<header class="top">
+  <div class="wrap masthead">
+    <p class="eyebrow">WeAreDevelopers &times; BAND &mdash; Dark Factory</p>
+    <div class="title-row">
+      <h1>Dark&nbsp;Factory</h1>
+      <p class="thesis">A band of coding agents that plans, implements, and refuses to hand off anything that does not conform.</p>
+    </div>
+    <dl class="facts">
+      <div class="fact"><dt>Track</dt><dd>Full Pocket</dd></div>
+      <div class="fact"><dt>Agents</dt><dd>5</dd></div>
+      <div class="fact"><dt>Allowed to write code</dt><dd>1</dd></div>
+      <div class="fact"><dt>Rehearsal suite</dt><dd>87 / 87</dd></div>
+      <div class="fact"><dt>Licence</dt><dd>MIT</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">The design decision</p>
+      <h2>Refusing beats producing</h2>
+    </div>
+    <div class="claim">
+      <p>Grading here is literal and automated &mdash; exact field names, exact status codes, exact <code>data-testid</code> values. A beautiful screen with a mistyped attribute scores zero. So the competitive advantage is not implementing faster. It is <strong>refusing to hand off anything that does not conform</strong>.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">The crew</p>
+      <h2>One implementer, three verifiers, one planner</h2>
+      <p class="lede">The ratio is the design. Select a station to see what it holds.</p>
+    </div>
+    <div class="stations" id="stations"></div>
+    <div class="detail" id="detail" aria-live="polite"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Routing</p>
+      <h2>Who talks to whom</h2>
+      <p class="lede">Adding an agent to a room does not wake it. A message must mention it &mdash; so every handoff is an explicit mention, and that is the wiring.</p>
+    </div>
+    <div class="diagram-scroll">
+      <svg viewBox="0 0 900 300" role="img" aria-label="Work flows from the architect to the spec-warden, to the builder, then through three customs posts; any customs post can reject work back to the builder.">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--rule)"/>
+          </marker>
+          <marker id="ah-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/>
+          </marker>
+        </defs>
+
+        <line x1="150" y1="70" x2="196" y2="70" stroke="var(--rule)" stroke-width="2" marker-end="url(#ah)"/>
+        <line x1="346" y1="70" x2="392" y2="70" stroke="var(--rule)" stroke-width="2" marker-end="url(#ah)"/>
+        <line x1="542" y1="70" x2="588" y2="70" stroke="var(--rule)" stroke-width="2" marker-end="url(#ah)"/>
+
+        <rect x="20" y="42" width="130" height="56" rx="3" fill="var(--surface-2)" stroke="var(--good)" stroke-width="1.5"/>
+        <text x="85" y="66" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="var(--ink)">architect</text>
+        <text x="85" y="84" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--muted)">plans &amp; gates</text>
+
+        <rect x="216" y="42" width="130" height="56" rx="3" fill="var(--surface-2)" stroke="var(--good)" stroke-width="1.5"/>
+        <text x="281" y="66" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="var(--ink)">spec-warden</text>
+        <text x="281" y="84" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--muted)">conformance</text>
+
+        <rect x="412" y="42" width="130" height="56" rx="3" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+        <text x="477" y="66" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="var(--ink)">builder</text>
+        <text x="477" y="84" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--muted)">writes the code</text>
+
+        <rect x="608" y="18" width="272" height="104" rx="3" fill="none" stroke="var(--rule)" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="744" y="14" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1.2" fill="var(--muted)">CUSTOMS</text>
+        <rect x="622" y="28" width="244" height="26" rx="3" fill="var(--surface-2)" stroke="var(--good)" stroke-width="1.5"/>
+        <text x="744" y="45" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">spec-warden &middot; phase 2</text>
+        <rect x="622" y="58" width="244" height="26" rx="3" fill="var(--surface-2)" stroke="var(--good)" stroke-width="1.5"/>
+        <text x="744" y="75" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">race-hunter</text>
+        <rect x="622" y="88" width="244" height="26" rx="3" fill="var(--surface-2)" stroke="var(--good)" stroke-width="1.5"/>
+        <text x="744" y="105" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">regression-guard</text>
+
+        <path d="M 744 122 L 744 176 Q 744 192 728 192 L 493 192 Q 477 192 477 176 L 477 102"
+              fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#ah-r)"/>
+        <text x="744" y="216" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="13" font-weight="600" fill="var(--accent)">one deviation rejects the handoff</text>
+
+        <path d="M 85 122 L 85 246 Q 85 262 101 262 L 728 262 Q 744 262 744 246 L 744 126"
+              fill="none" stroke="var(--rule)" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#ah)"/>
+        <text x="414" y="282" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--muted)">verdict returns to the architect, which runs the full gate itself</text>
+      </svg>
+    </div>
+    <div class="rule-note">
+      <span><b>Never hardcoded.</b> each agent inspects the room and mentions the next role itself</span>
+      <span><b>Re-crewable.</b> a missing skill can be recruited into the room at runtime</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">The rehearsal</p>
+      <h2>Built end to end from one paragraph</h2>
+      <p class="lede">Before the build window opened, the band produced a complete reservation service &mdash; spec, conformance checklist, implementation, adversarial pass and gate. Nobody wrote a line of it.</p>
+    </div>
+    <div class="evidence">
+      <div class="score">
+        <span class="n">87</span>
+        <span class="l">tests passing, zero failing</span>
+        <span class="s">Run independently rather than taken from the agents&rsquo; own report &mdash; the whole design rests on not trusting reports.</span>
+      </div>
+      <div class="quotes">
+        <div class="q"><p>&ldquo;GATE GREEN &mdash; Ran the full gate myself from dry-run/, not reported to me.&rdquo;</p><p class="who">regression-guard</p></div>
+        <div class="q"><p>&ldquo;VERDICT: CONFORMS &mdash; Phase-2 re-verification passed. No deviation, no bounce.&rdquo;</p><p class="who">spec-warden</p></div>
+        <div class="q"><p>&ldquo;Invariant HOLDS on every vector. No double-book, no 201+409 split, no record/replay race, no 500.&rdquo;</p><p class="who">race-hunter</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Emergent</p>
+      <h2>Three things we never wired</h2>
+      <p class="lede">None of this was in the brief. It came out of the persistent role instructions.</p>
+    </div>
+    <div class="findings">
+      <div class="finding">
+        <div class="n">01</div>
+        <div class="c">
+          <h3>An agent withdrew its own false finding</h3>
+          <p>The race-hunter raised a race, disproved it, and retracted it in the open. The architect recorded it as <em>&ldquo;the honest RH-5 ghost withdrawal&rdquo;</em>. Its role says: explain why it was not real, so nobody chases a ghost.</p>
+        </div>
+      </div>
+      <div class="finding">
+        <div class="n">02</div>
+        <div class="c">
+          <h3>An agent corrected its supervisor</h3>
+          <p><em>&ldquo;One number to correct before it gets baked into the gate: the count is now 87, not 83.&rdquo;</em> It was right, and the architect accepted the correction.</p>
+        </div>
+      </div>
+      <div class="finding">
+        <div class="n">03</div>
+        <div class="c">
+          <h3>Verdicts cite code, not prose</h3>
+          <p>The architect signed off the atomicity chokepoint by file and line &mdash; <code>store.js:54/75</code> &mdash; rather than accepting the builder&rsquo;s summary of it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">The delete test</p>
+      <h2>Take BAND out. What breaks?</h2>
+    </div>
+    <div class="breaks">
+      <div class="brk"><h3>The bounce</h3><p>Customs cannot return work to the builder: there is no peer-to-peer channel. An orchestrator hardcodes every edge; here the customs post decides who to mention at runtime.</p></div>
+      <div class="brk"><h3>Hot recruitment</h3><p>An agent can inspect the room, find the expertise missing, add another agent and delegate to it. A line that can hire is not a pipeline.</p></div>
+      <div class="brk"><h3>The evidence</h3><p>The work board, the versioned plan and the mirrored traces <em>are</em> the verified result. Without the room there is code, but no proof of how it was produced.</p></div>
+      <div class="brk"><h3>The human as a peer</h3><p>Permission decisions and product calls arrive through the same room as the work. There is no second channel to maintain.</p></div>
+    </div>
+    <p class="verdict">Removing BAND does not degrade the factory. It removes it.</p>
+  </section>
+
+  <section>
+    <div class="limit">
+      <p class="eyebrow">Declared limitation</p>
+      <h2>This factory is not fully dark</h2>
+      <p class="lead">An agent cannot approve another agent&rsquo;s permission request, and there is no bulk approval. Operations that trigger one require a human.</p>
+      <p>Approval policies are set so routine file work needs no human. What remains are genuine exceptions, and those get a person. Claiming otherwise would be false.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div class="links">
+    <span><b>Repository</b> &nbsp;[github.com/&hellip;]</span>
+    <span><b>Live demo</b> &nbsp;[&hellip;.vercel.app]</span>
+    <span><b>Built on</b> &nbsp;BAND &middot; Jam &middot; Claude Code &middot; OpenRouter</span>
+  </div>
+</footer>
+
+<script>
+  var CREW = [
+    { id:'architect', role:'Plans, splits the work, runs the full gate, renders verdicts', writes:false,
+      holds:'Also holds the golden suite and the baseline test count. Blocks when a concurrency suite ships without a conservation check.',
+      quote:'A sign-off with no adversarial sweep is a depth-only review — say so explicitly.' },
+    { id:'spec-warden', role:'Literal conformance with the written specification', writes:false,
+      holds:'Turns the spec into a numbered checklist before anyone implements, then verifies the running code against it. Field names, status codes, error bodies, test ids — character for character.',
+      quote:'One deviation rejects. There is no “close enough”.' },
+    { id:'builder', role:'The JSON API and the web UI', writes:true,
+      holds:'Builds against the conformance checklist, not against its own reading of the spec. Reports a commit; reviewers read the commit, not the summary.',
+      quote:'Per SPEC §2/§7, CONFORMANCE C-67.' },
+    { id:'race-hunter', role:'Concurrency, idempotency replay, malformed input', writes:false,
+      holds:'Writes reproducers that fail if the bug returns: torn bodies sent byte by byte, client aborts mid-request, oversize streams racing valid writes.',
+      quote:'A test that would not fail if the bug were reintroduced is not a test.' },
+    { id:'regression-guard', role:'The golden suite and the baseline test count', writes:false,
+      holds:'Runs what CI runs, never the convenient subset. Watches for the test count falling while files were added.',
+      quote:'Never pipe the gate through tail or grep — a red gate reads as exit 0.' }
+  ];
+
+  var wrapEl = document.getElementById('stations');
+  var detailEl = document.getElementById('detail');
+
+  CREW.forEach(function(a, i){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'station' + (a.writes ? ' writes' : '');
+    b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+    b.innerHTML =
+      '<span class="h">' + a.id + '</span>' +
+      '<span class="r">' + a.role + '</span>' +
+      '<span class="badge' + (a.writes ? ' writes' : '') + '">' +
+      (a.writes ? 'writes code' : 'never implements') + '</span>';
+    b.addEventListener('click', function(){ select(i); });
+    wrapEl.appendChild(b);
+  });
+
+  function select(i){
+    var btns = wrapEl.querySelectorAll('.station');
+    for (var k = 0; k < btns.length; k++){
+      btns[k].setAttribute('aria-pressed', k === i ? 'true' : 'false');
+    }
+    var a = CREW[i];
+    detailEl.innerHTML =
+      '<h3>' + a.id + '</h3>' +
+      '<p style="font-size:15px;line-height:1.55">' + a.holds + '</p>' +
+      '<p class="quote">“' + a.quote + '”</p>' +
+      '<p class="who">from roles/' + a.id + '.md</p>';
+  }
+
+  select(0);
+</script>
