@@ -77,10 +77,22 @@ anulan.
 ⚠️ Convierte ambas a tu zona horaria y ponlas en el calendario. El cierre en PDT
 puede caer de madrugada del día siguiente donde estés.
 
+## Deploy
+
+`vercel.json` sirve la carpeta `web/` como raíz del sitio, sin build. Para
+conectarlo: en Vercel, **Add New → Project → Import** el repo `dark-factory`.
+Detecta la configuración solo; no hay que tocar nada.
+
+⚠️ **Durante el build del hackathon hay que cambiarlo.** Cuando exista el producto
+de Full Pocket, `outputDirectory` deja de ser `web` y pasa a ser la carpeta de
+salida de la app. La página de la fábrica puede quedarse en una ruta secundaria o
+enlazarse desde el repo.
+
 ## Pendiente
 
 - [ ] Compartir los dos artefactos publicados desde su menú Share
-- [ ] Deploy en Vercel para que la URL de demo exista desde el día 1
+- [ ] Importar el repo en Vercel para que la URL de demo exista desde el día 1
+- [ ] Borrar `dark-factory-archive` cuando ya no haga falta
 - [ ] Confirmar la pista con lo que respondan en el Discord de BAND
 - [ ] Canjear los $25 de Featherless en cuanto llegue el correo
 - [ ] Rellenar los `[corchetes]` de ENTREGA.md, el deck y la web al cerrar el build
