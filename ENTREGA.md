@@ -173,7 +173,7 @@ A software factory built in BAND Desktop: five coding agents in one room,
 coordinating through @mention routing, building a wallet and payments service
 against a written specification.
 
-**Live demo:** [...]  ·  **Deck:** [...]  ·  Licence: MIT
+**Live demo:** https://dark-factory-sepia.vercel.app  ·  **Repository:** https://github.com/yanerox69/dark-factory  ·  Licence: MIT
 
 ## The idea
 

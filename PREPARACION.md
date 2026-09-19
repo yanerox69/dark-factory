@@ -77,11 +77,22 @@ anulan.
 ⚠️ Convierte ambas a tu zona horaria y ponlas en el calendario. El cierre en PDT
 puede caer de madrugada del día siguiente donde estés.
 
+## Enlaces vivos
+
+| | |
+|---|---|
+| Repositorio | https://github.com/yanerox69/dark-factory |
+| Demo | https://dark-factory-sepia.vercel.app |
+| Deck | https://claude.ai/artifact/6TqTryHmhowVmhF7Stwpe9 |
+| Página | https://claude.ai/artifact/Rxkwai1kPxWUj9PePND5k2 |
+
+⚠️ Los dos artefactos de Claude son **privados** hasta que los compartas desde su
+menú Share, en modo enlace público.
+
 ## Deploy
 
-`vercel.json` sirve la carpeta `web/` como raíz del sitio, sin build. Para
-conectarlo: en Vercel, **Add New → Project → Import** el repo `dark-factory`.
-Detecta la configuración solo; no hay que tocar nada.
+`vercel.json` sirve la carpeta `web/` como raíz del sitio, sin build. Ya está
+conectado y desplegando desde `main`.
 
 ⚠️ **Durante el build del hackathon hay que cambiarlo.** Cuando exista el producto
 de Full Pocket, `outputDirectory` deja de ser `web` y pasa a ser la carpeta de
