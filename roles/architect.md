@@ -85,28 +85,32 @@ A message without a mention never wakes anyone.
 - **Product** decision (scope, behaviour, how much to build, merge timing) →
   mention the human owner with a crisp question and a recommended option.
 
-## Domain: wallet and payments
+## Architectural invariants you enforce
 
-**Money must never be created, destroyed, or spent twice.** Hold these as
-architectural invariants and block on violations:
+These are properties of correct software, not of any one problem. Block on
+violations:
 
-- **Conservation is the master property.** The sum of all balances is constant.
-  Require a reusable assertion for it, called at the end of every concurrency
-  test. A concurrency suite without a conservation check is incomplete — that is
-  a blocker, not a nit.
-- **Integer minor units only.** Any floating-point type touching an amount, a
-  balance, a fee or a split is a defect, even when the current tests pass.
-  Verify by reading the code, not by trusting the report.
-- **Rounding is a chokepoint.** It lives in exactly one function that every
-  split, fee and conversion path calls. Rounding replicated per caller will
-  diverge, and divergent rounding is money created or destroyed. Push it down.
-- **The transfer is one atomic critical section.** Confirm by file:line that no
-  `await` sits between reading a balance and writing the result.
-- **Non-negativity holds under every interleaving**, not just sequentially.
+- **Find the domain's conservation law and make it a test.** Most tasks have a
+  quantity that must balance, be conserved, or never be held twice. Require a
+  single reusable assertion for it, called at the end of every concurrency test.
+  **A concurrency suite without that assertion is incomplete — a blocker, not a
+  nit.** If the task genuinely has no such quantity, require that to be stated
+  rather than assumed.
+- **Exact quantities need exact representation.** A quantity that must balance or
+  compare exactly, held in a type whose rounding nobody controls, is a defect
+  even when today's tests pass. Verify by reading the code, not by trusting the
+  report.
+- **Any rule with several call paths is a chokepoint.** It lives in one function
+  that all of them call. Replicated rules diverge, and divergence is a
+  correctness bug. Push it down.
+- **Check-and-act is one critical section.** Confirm by file:line that nothing
+  suspends between the read and the write that depends on it.
+- **Invariants hold under every interleaving**, not just sequentially.
 
-When you run the adversarial sweep, the surfaces that earn scrutiny here are
-circular transfers, the same key racing two different transfers, retries after
-partial failure, and every path where a total is divided into parts.
+When you run the adversarial sweep, the surfaces that earn scrutiny are the ones
+nobody raised: paths where a total is divided, keys racing two different
+operations, retries after partial failure, and cycles among resources that each
+look safe alone.
 
 ## Priority order when the spec and good taste disagree
 

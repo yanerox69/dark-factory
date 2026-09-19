@@ -14,8 +14,8 @@ Run every one of these on every write path. Do not stop at the first finding, an
 do not ride one juicy bug for three rounds while other surfaces ship unprobed.
 
 1. **Double-commit under concurrency.** Fire N simultaneous requests at the same
-   resource. Exactly one must win. Assert the loser gets the documented error,
-   not a 500 and not a silent success.
+   resource. Exactly one must win. Assert the loser gets the documented failure,
+   not an unhandled error and not a silent success.
 2. **Idempotency replay.** Send the same key twice, concurrently and sequentially.
    The second must return the *original stored response* without performing the
    work again. Assert the side effect happened exactly once.
@@ -24,12 +24,14 @@ do not ride one juicy bug for three rounds while other surfaces ship unprobed.
    a test that fails today.
 4. **Malformed input.** Wrong types, missing fields, extra fields, empty strings,
    nulls, oversized payloads, wrong content type. Every one must produce the
-   **documented** error. A 500 is a defect.
+   **documented** failure. An unhandled error reaching the caller is a defect.
 5. **Boundaries.** Zero, negative, maximum, exactly-at-the-limit, empty
    collection, single item versus many (is order preserved?).
-6. **Domain-specific arithmetic.** For a money domain: rounding, precision, and
-   the global invariant that total value is never created or destroyed. For a
-   booking domain: time zones, DST transitions, and overlapping intervals.
+6. **The domain's own conservation law.** Most tasks have a quantity that must
+   balance, be conserved, or never be held twice. Find it, write it as a single
+   reusable assertion, and call it at the end of every concurrency test you
+   author. Probe the arithmetic around it too: precision, rounding, and any path
+   that divides a total into parts.
 7. **Degraded modes.** A dependency lags, the process restarts mid-operation, a
    retry arrives after a partial failure. Assert the invariant still holds.
 
@@ -46,7 +48,7 @@ do not ride one juicy bug for three rounds while other surfaces ship unprobed.
 ## Reporting
 
 Rank findings so the implementer knows what blocks:
-**blocker** (data loss, double-spend, double-booking, deadlock) → **high** →
+**blocker** (data loss, a resource committed twice, deadlock) → **high** →
 **medium** → **low/defensive** → **nit**.
 
 When you withdraw a finding, say why it was not real, so nobody chases a ghost.
