@@ -45,7 +45,7 @@ extrae los datos concretos que te pidan en vez de publicarlo entero.
 
 ---
 
-## Pista elegida: 💰 Bolsillo lleno (clon de Venmo)
+## Pista elegida: 💰 pocketful (clon de Venmo)
 
 **Razón:** el invariante es una ley de conservación —la suma de todos los saldos
 no cambia nunca— y eso se comprueba con una sola aserción después de cualquier
@@ -95,9 +95,29 @@ menú Share, en modo enlace público.
 conectado y desplegando desde `main`.
 
 ⚠️ **Durante el build del hackathon hay que cambiarlo.** Cuando exista el producto
-de Full Pocket, `outputDirectory` deja de ser `web` y pasa a ser la carpeta de
+de pocketful, `outputDirectory` deja de ser `web` y pasa a ser la carpeta de
 salida de la app. La página de la fábrica puede quedarse en una ruta secundaria o
 enlazarse desde el repo.
+
+## 🚨 Requisitos nuevos del 19 de septiembre
+
+La página del hackathon se actualizó con requisitos que no existían al montar
+esto. El detalle completo está en
+[referencia/reglas-hackathon.md](referencia/reglas-hackathon.md). Lo que cambia
+para nosotros:
+
+| Cambio | Estado |
+|---|---|
+| Las mandates no pueden nombrar detalle de pista — **descalifica** | ✅ corregido |
+| La pista se llama **pocketful**, no "Bolsillo lleno" | ✅ corregido |
+| El vídeo **debe** grabar la sala de BAND — descalifica | ✅ en el guion |
+| Repo con `stage-1/` … `stage-4/`, una por etapa | ⏳ durante el build |
+| `harness export-room` y `harness check` | ⏳ el harness sale el día 26 |
+| El servicio debe arrancar en contenedor limpio **sin red** | ⏳ hay que probarlo |
+| Fecha de cierre contradictoria en la propia página | ❓ preguntar en Discord |
+
+**60 de los 100 puntos** son por que la fábrica sea genérica y otro equipo pueda
+levantarla. No por el producto.
 
 ## Pendiente
 

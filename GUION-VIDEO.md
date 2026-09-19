@@ -25,6 +25,17 @@ la primera pasada en silencio.
 
 ---
 
+## 🚨 Requisito que descalifica
+
+> *"Your video must include a recording of the BAND Desktop room that generated
+> your solution, and a walkthrough. **A video without the room recording
+> disqualifies your team.**"*
+
+No es opcional ni decorativo: **la sala de BAND Desktop tiene que verse grabada**.
+El tramo de demo de esta escaleta ya lo cubre —capturas A, B, D y E son todas de
+la sala—, pero grábalas primero y con margen. Si algo se queda sin grabar, que no
+sea eso.
+
 ## Antes de grabar
 
 ### El plano que gana
@@ -49,7 +60,7 @@ Todas **mientras la fábrica trabaja**. Graba de sobra y recorta después.
 | D | **El rebote**: rechazo volviendo al builder | Jam → Chat | 20 s |
 | E | El veredicto final del architect | Jam → Chat | 10 s |
 | F | La suite pasando, con el recuento final | Terminal | 15 s |
-| G | La app de Full Pocket haciendo una transferencia | Navegador, sobre Vercel | 20 s |
+| G | La app de pocketful haciendo una transferencia | Navegador, sobre Vercel | 20 s |
 
 ⚠️ Antes de grabar cualquier terminal, comprueba que no hay claves a la vista.
 

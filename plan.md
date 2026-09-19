@@ -91,7 +91,7 @@ at handoff time and mentions whoever holds the next role. That is what makes thi
 a factory rather than a hardcoded pipeline: the line can be re-crewed at runtime,
 and an agent can recruit missing expertise into the room and delegate to it.
 
-## The domain: Full Pocket (wallet and payments)
+## The domain: pocketful (wallet and payments)
 
 A white-room clone of a Venmo-shaped product. The hard part, stated by the
 organisers: **money must never be created, destroyed, or spent twice**, across

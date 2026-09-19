@@ -92,7 +92,7 @@ A pipeline cannot retract its own finding or correct the stage above it.
 
 THE PRODUCT
 
-Full Pocket, a wallet and payments clone. Money must never be created,
+pocketful, a wallet and payments clone. Money must never be created,
 destroyed, or spent twice. Three invariants carry it: conservation (the sum of
 all balances is constant across any storm of operations), non-negativity under
 every interleaving, and exactly-once effect on idempotency replay. Integer
@@ -197,7 +197,7 @@ carguen las fuentes de Google y la portada sale con tipografía de sistema.
 Para la raíz del repo público. Los jueces suelen abrirlo antes que nada.
 
 ```markdown
-# Dark Factory — Full Pocket
+# Dark Factory — pocketful
 
 A software factory built in BAND Desktop: five coding agents in one room,
 coordinating through @mention routing, building a wallet and payments service

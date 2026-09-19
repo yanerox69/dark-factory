@@ -5,18 +5,30 @@
 | Hito | Cuándo |
 |---|---|
 | WeAreDevelopers World Congress NA (San José) | 23–25 sep 2026 |
-| **Inicio del build** | **26 sep 2026, 09:00 PDT** |
-| **Cierre** | **5 oct 2026, 23:59 PDT** |
+| **Inicio del build** | 26 sep, 09:00 PDT = **12:00 del mediodía en Venezuela** |
+| Q&A en Discord | 26 sep, 13:00 hora de Venezuela |
+| **Cierre** | ⚠️ ver aviso abajo |
 | Envío manual de emergencia | hasta 6 h después, solo con aprobación previa |
 
-⚠️ Convierte a tu zona horaria. El cierre en PDT puede caer de madrugada.
+### ⚠️ La fecha de cierre se contradice en la propia página
+
+| Dónde lo dice | Qué dice |
+|---|---|
+| Cabecera del reto | `Close 23:59 PDT` del 5 de octubre → **02:59 del 6 en Venezuela** |
+| Calendario del evento | `Oct 5, 3:00 AM Venezuela Time — End of Submissions!` |
+
+Son casi **24 horas de diferencia**. No te fíes de ninguna de las dos: pregúntalo
+en el Discord y trabaja con la más temprana hasta tener respuesta.
+
+Si la buena es la del calendario, el cierre es la **madrugada del domingo 5**, no
+la del lunes 6 — y eso te quita un día entero de build.
 
 ## Premios
 
 **$6.000 en efectivo**, repartidos entre dos pistas. Solo compites contra equipos
 de tu pista.
 
-| Puesto | Encargado de mesa | Bolsillo lleno |
+| Puesto | 🍽️ tablekeeper | 💸 pocketful |
 |---|---|---|
 | 1º | $1.500 | $1.500 |
 | 2º | $1.000 | $1.000 |
@@ -33,12 +45,12 @@ pista aplica).
 
 Ambas son clones "white room" de un producto conocido. Elige una y mantente en ella.
 
-### 🍽️ Encargado de mesa (OpenTable)
+### 🍽️ tablekeeper (OpenTable)
 Sistema de reservas de restaurantes.
 **La parte difícil:** una mesa nunca debe reservarse dos veces, teniendo en cuenta
 concurrencia, reintentos y zonas horarias.
 
-### 💰 Bolsillo lleno (Venmo)
+### 💸 pocketful (Venmo)
 Aplicación de billetera y pagos.
 **La parte difícil:** el dinero nunca debe crearse, destruirse ni gastarse dos
 veces, en transferencias simultáneas, reintentos y redondeo.
@@ -61,6 +73,77 @@ cuatro etapas, cada una con su propia especificación.
 > **Señal crítica:** `data-testid` exacto + "códigos de error documentados" + "el
 > error documentado en lugar de un 500" significa **evaluación automatizada por
 > conformidad**. No se gana con una demo bonita, se gana con conformidad literal.
+
+## 🚨 Requisitos de entrega — versión actualizada del 19 sep
+
+La organización publicó una lista mucho más detallada que la inicial. Estos son
+los puntos nuevos, y varios son motivo de **descalificación**.
+
+### Las mandates tienen que ser genéricas
+
+> *"A mandate is the standing instruction you give a seat. **It must be generic.
+> It cannot name anything specific to your track or the challenge: no endpoint
+> paths, no field names, no error codes, no data-testid values.**"*
+>
+> *"**A mandate naming track-specific detail disqualifies the entry.** The harness
+> scans for this so you can fix it before you submit, and the judging process
+> checks it again."*
+
+La prueba que proponen: *¿podrías darle tus mandates a un equipo que construye
+algo completamente distinto y seguirían teniendo sentido?* Si no, has escrito una
+transcripción del problema, no una fábrica.
+
+**Y aquí está el peso real: 60 de los 100 puntos son por eso.** El detalle de la
+pista va en la tarea que pegas en la sala, nunca en la instrucción permanente de
+un seat.
+
+### La banda
+
+- Mínimo **tres seats** distintos en BAND Desktop, cada uno con su fichero de
+  mandate. Pueden compartir runtime y modelo
+- Un seat puede ser cualquier runtime que BAND soporte, incluido uno propio
+  construido sobre el SDK y ejecutado en tu máquina, en la nube o en un runner de CI
+- Modelos: créditos de Featherless o tu propio proveedor
+
+### El repositorio
+
+- **Un repo público de GitHub** que un juez pueda clonar sin ser miembro de tu
+  sala de BAND Desktop
+- **Una carpeta por etapa completada**: `stage-1/` … `stage-4/`, cada una un
+  servicio completo y compilable por separado
+- Mínimo para ser elegible: **una `stage-1/` completa**
+- Cada carpeta se evalúa contra **todas las suites hasta su número**: `stage-3/`
+  tiene que pasar las suites 1, 2 y 3
+- ⚠️ Cada carpeta debe contener **la solución de esa etapa**. Una que además pase
+  la suite de la siguiente es «una respuesta posterior en la carpeta equivocada»
+  y **no puntúa para su etapa**
+- Además: las mandates, la descripción de la fábrica, y el **export de la sala**
+  de BAND Desktop (`harness export-room`)
+- Ejecuta **`harness check` antes de subir**: valida la estructura y avisa si
+  encuentra credenciales o datos privados
+
+### El vídeo
+
+- Debe incluir **grabación de la sala de BAND Desktop** que generó la solución,
+  más un recorrido explicativo
+- ⚠️ **Un vídeo sin la grabación de la sala descalifica al equipo**
+
+### El servicio
+
+- Tiene que compilar y servir desde un **contenedor limpio sin red saliente**
+- ⚠️ **Un servicio que no arranca puntúa cero.** Pruébalo antes de entregar
+- Los límites de CPU y memoria, la concurrencia del harness y los tiempos de
+  espera por petición se publican con la spec el día 26
+
+### Descalificadores, resumidos
+
+| | |
+|---|---|
+| ❌ | Una mandate que nombre detalle específico de la pista |
+| ❌ | Un vídeo sin grabación de la sala de BAND Desktop |
+| ❌ | Un servicio que no arranca desde contenedor limpio (puntúa cero) |
+
+---
 
 ## Qué se entrega
 

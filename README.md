@@ -1,10 +1,10 @@
-# Dark Factory — Full Pocket
+# Dark Factory — pocketful
 
 A software factory built in [BAND](https://band.ai) Desktop: five coding agents
 sharing one room, coordinating entirely through `@mention` routing, building a
 wallet and payments service against a written specification.
 
-Entry for **WeAreDevelopers × BAND — Dark Factory**, track: Full Pocket.
+Entry for **WeAreDevelopers × BAND — Dark Factory**, track: pocketful.
 Licence: MIT.
 
 **Live:** https://dark-factory-sepia.vercel.app
@@ -47,7 +47,7 @@ The full design, including the mention graph and the delete test, is in
 
 ## The product
 
-Full Pocket, a wallet and payments clone. Money must never be created, destroyed,
+pocketful, a wallet and payments clone. Money must never be created, destroyed,
 or spent twice. Three invariants carry it:
 
 1. **Conservation** — the sum of every balance is constant across any storm of
@@ -66,12 +66,23 @@ Invariants and fixed decisions: [`plan.md`](plan.md).
 
 | Path | What it is |
 |---|---|
-| [`roles/`](roles/) | The persistent role instructions each agent carries |
+| [`roles/`](roles/) | The seat mandates — standing instructions, deliberately generic |
+| `stage-1/` … `stage-4/` | One complete, buildable service per completed stage *(created during the build)* |
 | [`plan.md`](plan.md) · [`architecture.json`](architecture.json) | The room plan and its Arch diagram |
 | [`banda/`](banda/) | The band design and the mention graph |
 | [`ENTREGA.md`](ENTREGA.md) · [`GUION-VIDEO.md`](GUION-VIDEO.md) | Submission copy and the video script |
 | [`web/`](web/) | A page explaining the factory |
 | [`dry-run/`](dry-run/) | **A rehearsal, not a deliverable** — see below |
+
+### On the mandates
+
+A mandate is a seat's standing instruction: what it owns, how it takes and hands
+off work, when it rejects something. **They name nothing specific to this track or
+challenge** — no routes, field names, status codes or element ids. That detail
+belongs in the task pasted into the room, not in a seat's standing instruction.
+
+The test they should pass: hand them to a team building something completely
+different, and they still make sense.
 
 ## About `dry-run/`
 
@@ -82,7 +93,7 @@ rehearse the pipeline.
 
 87 tests, 87 passing, run independently rather than taken from the agents' own
 report. It is evidence that the factory works. It is **not** hackathon output and
-shares no code with the Full Pocket product.
+shares no code with the pocketful product.
 
 Three behaviours emerged during that rehearsal that were never written into the
 brief:
