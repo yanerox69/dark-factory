@@ -135,16 +135,31 @@ Developer Tools, Multi-Agent Systems, Autonomous Software Engineering
 
 ## Imagen de portada (16:9)
 
-Concepto, para generar o montar:
+✅ **Hecha:** [`web/cover.png`](web/cover.png) — 1280×720, ratio 1.7778 exacto.
 
-> Fondo casi negro (`#0E1116`). Cinco nodos en línea horizontal unidos por
-> flechas, con **una flecha de retorno curvada** desde los tres últimos hacia el
-> tercero — el rebote, que es lo que distingue el sistema. Cuatro nodos en verde
-> (`#3FB950`), el `builder` en ámbar (`#D29922`). Debajo, en mono:
-> `architect → spec-warden → builder → customs`. Título en IBM Plex Sans:
-> **Dark Factory**. Sin caras, sin robots, sin cerebros de circuitos.
+El criterio: en el listado de lablab esto se ve en miniatura, así que solo puede
+leerse **una** cosa. Se eligió la **flecha de retorno** en ámbar, el único acento
+de color de la composición, porque el rebote es el argumento entero del proyecto.
+Todo lo demás —los cinco nodos, el `builder` destacado, el título— queda en
+segundo plano deliberadamente.
 
-El elemento que tiene que leerse en miniatura es **la flecha de retorno**.
+Sin caras, sin robots, sin cerebros de circuitos: los tres tópicos de portada de
+proyecto de IA.
+
+### Regenerarla
+
+La fuente es [`web/cover.html`](web/cover.html), así que se puede editar y
+volver a exportar:
+
+```powershell
+& "C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --disable-gpu `
+  --hide-scrollbars --force-device-scale-factor=1 --window-size=1280,720 `
+  --virtual-time-budget=8000 --screenshot="web\cover.png" `
+  "file:///C:/Users/Yanero/Desktop/dark-factory/web/cover.html"
+```
+
+⚠️ `--virtual-time-budget` es necesario: sin él, Chrome captura antes de que
+carguen las fuentes de Google y la portada sale con tipografía de sistema.
 
 ---
 

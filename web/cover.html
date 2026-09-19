@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dark Factory — cover</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600;700&display=swap">
+<style>
+  html,body{margin:0;padding:0;background:#0E1116}
+  .cover{
+    width:1280px; height:720px; box-sizing:border-box; overflow:hidden;
+    background:linear-gradient(155deg,#0E1116 0%,#141C25 58%,#1C2733 100%);
+    font-family:'IBM Plex Sans',"Segoe UI",Arial,sans-serif; color:#E6EDF3;
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:58px 68px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',Consolas,monospace; font-size:18px; font-weight:700;
+    letter-spacing:.2em; color:#3FB950; margin:0 0 16px;
+  }
+  h1{
+    font-size:104px; font-weight:700; line-height:.94; letter-spacing:-.03em;
+    margin:0; color:#F0F6FC;
+  }
+  .sub{font-size:27px; line-height:1.4; color:#8B949E; margin:20px 0 0; max-width:560px}
+  .sub b{color:#E6EDF3; font-weight:600}
+  .mid{display:flex; align-items:center; justify-content:space-between; gap:40px; flex:1}
+  .left{flex:1; min-width:0}
+  .right{flex:0 0 auto}
+  .foot{display:flex; align-items:center; justify-content:space-between; gap:32px}
+  .badge{
+    font-family:'IBM Plex Mono',Consolas,monospace; font-size:19px; font-weight:700;
+    color:#0E1116; background:#D29922; padding:10px 20px; border-radius:5px;
+    letter-spacing:.05em;
+  }
+  .stack{
+    font-family:'IBM Plex Mono',Consolas,monospace; font-size:18px; color:#586A7A;
+    margin:0; letter-spacing:.03em;
+  }
+</style>
+</head>
+<body>
+<div class="cover">
+
+  <div class="mid">
+    <div class="left">
+      <p class="eyebrow">WEAREDEVELOPERS &times; BAND</p>
+      <h1>Dark<br>Factory</h1>
+      <p class="sub">Five coding agents in one room.<br><b>Four are forbidden from writing code.</b></p>
+    </div>
+
+    <div class="right">
+      <svg width="500" height="250" viewBox="0 0 500 250" aria-hidden="true">
+        <defs>
+          <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#46566A"/>
+          </marker>
+          <marker id="o" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#E0A11F"/>
+          </marker>
+        </defs>
+
+        <line x1="96"  y1="42" x2="122" y2="42" stroke="#46566A" stroke-width="3" marker-end="url(#g)"/>
+        <line x1="188" y1="42" x2="214" y2="42" stroke="#46566A" stroke-width="3" marker-end="url(#g)"/>
+        <line x1="280" y1="42" x2="306" y2="42" stroke="#46566A" stroke-width="3" marker-end="url(#g)"/>
+        <line x1="372" y1="42" x2="398" y2="42" stroke="#46566A" stroke-width="3" marker-end="url(#g)"/>
+
+        <rect x="38"  y="20" width="58" height="44" rx="6" fill="#18222C" stroke="#3FB950" stroke-width="2.5"/>
+        <rect x="130" y="20" width="58" height="44" rx="6" fill="#18222C" stroke="#3FB950" stroke-width="2.5"/>
+        <rect x="222" y="20" width="58" height="44" rx="6" fill="#2E2412" stroke="#E0A11F" stroke-width="4"/>
+        <rect x="314" y="20" width="58" height="44" rx="6" fill="#18222C" stroke="#3FB950" stroke-width="2.5"/>
+        <rect x="406" y="20" width="58" height="44" rx="6" fill="#18222C" stroke="#3FB950" stroke-width="2.5"/>
+
+        <text x="251" y="86" text-anchor="middle" font-family="IBM Plex Mono, Consolas, monospace"
+              font-size="17" font-weight="700" fill="#E0A11F">builder</text>
+
+        <path d="M435 70 L435 152 Q435 176 411 176 L275 176 Q251 176 251 152 L251 100"
+              fill="none" stroke="#E0A11F" stroke-width="8" stroke-linecap="round" marker-end="url(#o)"/>
+
+        <text x="250" y="222" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, Arial, sans-serif"
+              font-size="26" font-weight="700" fill="#E0A11F">one deviation rejects</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="badge">TRACK &middot; FULL POCKET</span>
+    <p class="stack">BAND &middot; Jam &middot; Claude Code &middot; MIT</p>
+  </div>
+
+</div>
+</body>
+</html>
