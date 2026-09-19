@@ -34,9 +34,14 @@ el primer día se gaste en construir el producto y no en pelearse con Jam.
 
 ## Registro
 
-[bitacora.md](bitacora.md) — lo que se probó, lo que falló y por qué. Incluye los
-tres bloqueadores que encontró el ensayo general y que habrían costado el primer
-día del build.
+`bitacora.md` — lo que se probó, lo que falló y por qué. Incluye los tres
+bloqueadores que encontró el ensayo general y que habrían costado el primer día
+del build.
+
+⚠️ **Fuera del repositorio a propósito.** Vive solo en tu máquina y está en
+`.gitignore`: contiene detalles de cuentas, saldos y configuración que no tienen
+por qué ser públicos. Si lo necesitas para el caso de estudio del hackathon,
+extrae los datos concretos que te pidan en vez de publicarlo entero.
 
 ---
 

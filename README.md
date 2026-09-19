@@ -67,7 +67,6 @@ Invariants and fixed decisions: [`plan.md`](plan.md).
 | [`roles/`](roles/) | The persistent role instructions each agent carries |
 | [`plan.md`](plan.md) · [`architecture.json`](architecture.json) | The room plan and its Arch diagram |
 | [`banda/`](banda/) | The band design and the mention graph |
-| [`bitacora.md`](bitacora.md) | What was tried, what broke, and why |
 | [`ENTREGA.md`](ENTREGA.md) · [`GUION-VIDEO.md`](GUION-VIDEO.md) | Submission copy and the video script |
 | [`web/`](web/) | A page explaining the factory |
 | [`dry-run/`](dry-run/) | **A rehearsal, not a deliverable** — see below |

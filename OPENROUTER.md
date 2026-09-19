@@ -77,7 +77,7 @@ runtime desde `Agents → <agente> → Runtime`.
 
 ### ⚠️ Y después: reiniciar el daemon
 
-Lección ya aprendida hoy (ver [bitacora.md](bitacora.md)): **`jamd` no se reinicia
+Lección ya aprendida a base de perder una tarde: **`jamd` no se reinicia
 al cerrar la ventana de Jam**. Sin esto, los runtimes heredan el entorno viejo y
 fallan en silencio con turnos de un segundo.
 

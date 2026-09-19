@@ -205,7 +205,6 @@ Rejections travel backwards. One deviation rejects the whole handoff.
 | `roles/` | The persistent role instructions each agent carries |
 | `plan.md`, `architecture.json` | The room plan and its Arch diagram |
 | `banda/` | The band design and the mention graph |
-| `bitacora.md` | What was tried, what broke, and why |
 | `dry-run/` | A rehearsal service the band built end to end. 87 tests, 87 passing. Evidence the factory works — not a hackathon deliverable |
 
 ## Running it
