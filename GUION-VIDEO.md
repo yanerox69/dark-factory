@@ -13,8 +13,15 @@ La clave, y es lo contrario de lo que suele hacerse: **la mitad del metraje es e
 sistema funcionando**, no diapositivas hablando del sistema. El deck aporta los
 rótulos; el protagonista es la sala.
 
-Sin cara parlante. Texto grande en pantalla haciendo de narración, porque muchos
-jueces ven la primera pasada en silencio.
+**Voz en off, con los rótulos acompañándola.** El análisis del audio de la
+referencia muestra habla repartida por todo el metraje —ráfagas separadas por
+pausas de 1,5 a 6,6 segundos, que es patrón de voz y no de música—, así que el
+texto en pantalla no sustituye a la narración: la refuerza.
+
+Sin cara parlante: en la referencia no aparece nadie, solo rótulos y demo.
+
+Los rótulos tienen que sostenerse solos de todos modos, porque muchos jueces ven
+la primera pasada en silencio.
 
 ---
 
@@ -140,12 +147,19 @@ minutos y no lo vea nadie entero.
 **No pongas música épica sobre una demo de código.** Silencio o algo neutro.
 
 **No grabes cara parlante.** La referencia no la tiene y es más rápido de
-producir.
+producir. Voz sí, cara no.
 
 ## Notas de producción
 
-**Subtítulos igualmente**, aunque los rótulos hagan de narración. Si añades voz,
-que sea afirmativa: "la banda construyó", no "la banda podría construir".
+**Subtítulos siempre.** Llevas voz en off, así que hacen falta para quien vea en
+silencio.
+
+**Tono de la narración:** afirmativo. "La banda construyó", no "la banda podría
+construir". Todo lo que se cuenta ocurrió y está en la sala.
+
+**Un plano que la referencia tiene y tú puedes igualar:** en su demo se *oye* al
+agente responder. Tu equivalente es leer en voz alta el mensaje de rechazo
+mientras aparece en pantalla — que se oiga el sistema negándose.
 
 **Formato:** MP4, menos de 5 minutos, máximo 300 MB. A 1080p con
 compresión normal, 3 minutos caben de sobra.
