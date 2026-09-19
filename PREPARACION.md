@@ -68,14 +68,20 @@ anulan.
 
 ## Fechas
 
-| Hito | Cuándo |
+| Hito | Hora de Venezuela |
 |---|---|
 | Preparación | hasta el 25 sep |
-| **Inicio del build** | **26 sep, 09:00 PDT** |
-| **Cierre** | **5 oct, 23:59 PDT** |
+| **Inicio del build** | **sábado 26 sep, 12:00 del mediodía** |
+| Q&A en Discord | 26 sep, 13:00 |
+| **Cierre de entregas** | **domingo 5 oct, 02:59 de la madrugada** |
 
-⚠️ Convierte ambas a tu zona horaria y ponlas en el calendario. El cierre en PDT
-puede caer de madrugada del día siguiente donde estés.
+⚠️ **El cierre es un día antes de lo que parece.** La cabecera de la página dice
+`Close 23:59 PDT` junto al rango "Sep 26 – Oct 5", pero el calendario oficial
+codifica `20261005T065900Z`, que son las 23:59 PDT del día **4** y las 02:59 del
+**5** en Venezuela. El programa del evento coincide con esa hora temprana.
+
+**Tu último día completo de trabajo es el sábado 4.** El desglose está en
+[referencia/reglas-hackathon.md](referencia/reglas-hackathon.md).
 
 ## Enlaces vivos
 

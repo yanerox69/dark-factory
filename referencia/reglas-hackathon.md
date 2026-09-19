@@ -10,18 +10,37 @@
 | **Cierre** | ⚠️ ver aviso abajo |
 | Envío manual de emergencia | hasta 6 h después, solo con aprobación previa |
 
-### ⚠️ La fecha de cierre se contradice en la propia página
+### ⚠️ El cierre es un día antes de lo que parece
 
-| Dónde lo dice | Qué dice |
-|---|---|
-| Cabecera del reto | `Close 23:59 PDT` del 5 de octubre → **02:59 del 6 en Venezuela** |
-| Calendario del evento | `Oct 5, 3:00 AM Venezuela Time — End of Submissions!` |
+El enlace **Add to Google Calendar** de la página codifica las fechas reales:
 
-Son casi **24 horas de diferencia**. No te fíes de ninguna de las dos: pregúntalo
-en el Discord y trabaja con la más temprana hasta tener respuesta.
+```
+dates=20260926T160000Z/20261005T065900Z
+```
 
-Si la buena es la del calendario, el cierre es la **madrugada del domingo 5**, no
-la del lunes 6 — y eso te quita un día entero de build.
+| | UTC | PDT (−7) | Venezuela (−4) |
+|---|---|---|---|
+| Inicio | 26 sep 16:00 | 26 sep **09:00** ✓ | 26 sep **12:00** ✓ |
+| **Cierre** | 5 oct 06:59 | **4 oct 23:59** | **5 oct 02:59** |
+
+El inicio cuadra con la cabecera. El cierre **no**: la cabecera dice
+`Close 23:59 PDT` junto al rango "Sep 26 – Oct 5", que se lee como las 23:59 del
+día 5, pero el calendario codifica las 23:59 PDT del día **4**.
+
+**Dos fuentes de tres coinciden en la hora temprana:**
+
+- Calendario oficial → 5 oct, 02:59 Venezuela
+- Programa del evento → *"Oct 5, 3:00 AM Venezuela Time — End of Submissions!"*
+- Cabecera → ambigua; probablemente una etiqueta mal redactada
+
+### Trabaja con esto
+
+> **Cierre: domingo 5 de octubre, 02:59 hora de Venezuela.**
+> **Tu último día completo de trabajo es el sábado 4.**
+
+Preguntado en el Discord de lablab el 19 de septiembre; sin respuesta a esa
+fecha. Si alguna vez contestan y dicen otra cosa, actualiza esto — pero hasta
+entonces la fecha temprana es la única defendible.
 
 ## Premios
 
