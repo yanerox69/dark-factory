@@ -48,32 +48,35 @@ caduca — a diferencia de los créditos de Anthropic, que se consumen.
 
 ## Configuración
 
-### Variables de entorno
+### 🚨 No pongas las variables `ANTHROPIC_*` a nivel de usuario
+
+Se intentó y fue un error. Esas variables **secuestran cualquier Claude Code de
+la máquina**, incluida tu propia sesión: el modelo queda apuntando a OpenRouter y
+las operaciones que usan el modelo rápido empiezan a fallar con
+`There's an issue with the selected model`.
+
+**Usa [`iniciar-fabrica.ps1`](iniciar-fabrica.ps1)**, que las define solo para el
+proceso que arranca Jam. Los agentes las heredan vía el daemon y nada más las ve.
 
 ```powershell
-$k = Read-Host "Pega la clave de OpenRouter"
-[Environment]::SetEnvironmentVariable("ANTHROPIC_BASE_URL", "https://openrouter.ai/api", "User")
-[Environment]::SetEnvironmentVariable("ANTHROPIC_AUTH_TOKEN", $k, "User")
-[Environment]::SetEnvironmentVariable("ANTHROPIC_API_KEY", "", "User")
-Remove-Variable k
-"Configurado"
+.\iniciar-fabrica.ps1
 ```
 
-⚠️ **`ANTHROPIC_API_KEY` tiene que quedar vacía**, no sin definir. Si conserva la
-clave de Anthropic, Claude Code la usará y volverás al problema del saldo.
+El script comprueba antes que Jam esté completamente parado —si el daemon sigue
+vivo hereda el entorno viejo y no aplica nada— y aborta avisando si no.
 
-🔒 El patrón `Read-Host` evita que la clave quede en el historial de PowerShell.
+### La clave
 
-### Permitir las variables en el runtime de Jam
+Vive a nivel de usuario como **`DARKFACTORY_OPENROUTER_KEY`**, un nombre que no
+colisiona con nada. Para cambiarla sin que quede en el historial:
 
-Los agentes solo ven las variables que estén en su lista blanca:
-
+```powershell
+$k = Read-Host "Clave"; [Environment]::SetEnvironmentVariable("DARKFACTORY_OPENROUTER_KEY",$k,"User"); Remove-Variable k
 ```
---runtime-env ANTHROPIC_BASE_URL --runtime-env ANTHROPIC_AUTH_TOKEN --runtime-env ANTHROPIC_API_KEY
-```
 
-Los agentes actuales se crearon sin esto, así que hay que recrearlos o editar su
-runtime desde `Agents → <agente> → Runtime`.
+⚠️ **`ANTHROPIC_API_KEY` tiene que quedar vacía**, no con un valor viejo. Si
+Claude Code encuentra una clave de Anthropic, la usa y se ignora OpenRouter. El
+script ya lo hace.
 
 ### ⚠️ Y después: reiniciar el daemon
 
