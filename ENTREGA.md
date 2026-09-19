@@ -119,6 +119,21 @@ otherwise would be false.
 
 ---
 
+## Slides en PDF
+
+✅ **Hecho:** [`deck.pdf`](deck.pdf) — 12 páginas a 1920×1080, 16:9 apaisado.
+
+Generado desde las diapositivas del deck con Chrome en headless. Tres cosas que
+hay que respetar si se regenera:
+
+- `print-color-adjust: exact` en todo, o los fondos oscuros salen en blanco
+- `@page { size: 1920px 1080px; margin: 0 }` para el 16:9 exacto
+- El elemento `<x-shape kind="arrow-right">` del visor de slides **no existe**
+  fuera de él: se sustituye por un `clip-path` de CSS o las flechas desaparecen
+
+El deck también se puede descargar desde su propia página, que es la vía oficial.
+Este PDF está en el repo para no depender de eso el día de la entrega.
+
 ## Tags
 
 **Tecnología:**
