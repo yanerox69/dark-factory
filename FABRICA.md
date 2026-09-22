@@ -9,7 +9,50 @@ Valores reales. Todo esto ya existe en tu cuenta BAND.
 | Cuenta | Jose Miranda `@yanerox69` |
 | User id | `6c05036a-e7f6-41dd-9f7d-9e3264e32d82` |
 | Workspace | `C:\Users\Yanero\Desktop\dark-factory` |
-| CLI | `%LOCALAPPDATA%\Programs\jam\bin\jam.exe` (v0.4.10) |
+| CLI | `%LOCALAPPDATA%\Programs\jam\bin\jam.exe` (v0.4.10) — ⚠️ ver abajo, hay tres copias |
+
+## ⚠️ Antes de cualquier comando: el daemon y el CLI
+
+Dos trampas del PATH que bloquean **todo** el CLI y cuyos mensajes de error
+apuntan al sitio equivocado. Comprobadas el 22 de septiembre de 2026.
+
+### 1. Abre Jam Desktop primero — el daemon no se auto-arranca
+
+`jam.exe` está en `Programs\jam\bin\`, que sí está en el PATH, pero `jamd.exe`
+está en `%LOCALAPPDATA%\jam\`, que **no**. Con Jam Desktop cerrado, el CLI
+intenta levantar el daemon, no lo encuentra, y corta con:
+
+```
+daemon auto-start failed: spawning jamd.exe: program not found
+```
+
+No es una instalación rota. **Abre Jam Desktop antes de tocar el CLI** y el
+daemon queda arriba. Se verifica con `jam daemon status` → `daemon running`.
+
+### 2. No metas `%LOCALAPPDATA%\jam` en el PATH
+
+Parece la solución obvia a lo anterior. No lo es: hay **tres `jam.exe` idénticos**
+—mismo tamaño, misma fecha— y solo uno es el CLI que el daemon acepta.
+
+| Ruta | Qué es |
+|---|---|
+| `%LOCALAPPDATA%\Programs\jam\bin\jam.exe` | ✅ **el gestionado** (`target` en `cli-install.json`) |
+| `%LOCALAPPDATA%\jam\bin\jam.exe` | el hook |
+| `%LOCALAPPDATA%\jam\jam.exe` | la copia interna de la app |
+
+Si pones esa carpeta delante en el PATH, `jam` pasa a resolver a la copia de la
+app y el preflight corta con:
+
+```
+terminal `jam` is not the managed CLI — install or repair it from the desktop app
+```
+
+El mensaje sugiere reinstalar, pero **no hay nada que reparar**: es solo el orden
+del PATH. Comprueba cuál resuelve con `(Get-Command jam).Source` y, si no es el
+de `Programs\jam\bin`, quita la otra carpeta del PATH en vez de reinstalar.
+
+El registro de cuál es el bueno vive en `%LOCALAPPDATA%\jam\cli-install.json`,
+campo `target`.
 
 ## Sala
 
