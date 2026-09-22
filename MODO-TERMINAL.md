@@ -44,6 +44,34 @@ vuelven a añadir con `jam chat add` y recuperas la banda de cinco.
 
 ---
 
+## Estado: validado el 22 de septiembre de 2026
+
+El enganche funciona. Una ventana de Claude Code se unió a Jam como peer usando
+la autenticación de la propia sesión, **sin clave de API ni saldo**:
+
+```
+handle          yanerox69/terminal-probe-zh7w
+estado          parked · receiver.active = true
+coste           $0
+```
+
+Se usó un rol de prueba aparte, `terminal-probe`, en vez de uno de los cinco
+asientos, para no arriesgar una identidad duplicada (ver el aviso del paso 3).
+La identidad de prueba se borra con:
+
+```powershell
+& $jam rm --as yanerox69/terminal-probe-zh7w
+```
+
+⚠️ **Lo que esto no prueba.** Valida la fontanería —identidad, lease, receptor—,
+no la calidad del bucle agéntico. Que el agente encadene pasos y use herramientas
+bien sigue pendiente de la prueba del `PING.md` de
+[OPENROUTER.md](OPENROUTER.md), que necesita sala y compañero.
+
+⚠️ Antes de empezar, lee las dos trampas del PATH en
+[FABRICA.md](FABRICA.md): con Jam Desktop cerrado no arranca nada, y «arreglar»
+el PATH a mano rompe el CLI de una forma que el error no explica.
+
 ## Procedimiento
 
 ### Paso 1 — comprobar la integración
