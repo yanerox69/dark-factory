@@ -114,6 +114,40 @@ Si aparece `PING.md` **y** el agente responde en la sala, el tool use sobrevive 
 viaje y el montaje es válido. Si escribe el fichero pero no responde, o responde
 sin escribirlo, el bucle agéntico está degradado.
 
+### ✅ Resultado: pasada el 18 de septiembre de 2026
+
+**El riesgo no se materializó.** El log de la sala tiene el turno completo, de
+punta a punta en 18 segundos:
+
+```
+21:18:13  [tool_call]   Glob  → busca PING.md
+21:18:15  [tool_result] "No files found"
+21:18:18  [tool_call]   Write → PING.md con "pong"
+21:18:20  [tool_result] "File created successfully"
+21:18:23  [tool_call]   mcp__jam__jam_reply_to_message
+21:18:31  [text]        "Created PING.md ... with the single word pong."
+21:18:31  [task]        turn_complete · outcome: complete
+```
+
+Los dos criterios se cumplen: escribió el fichero **y** respondió en la sala.
+Encadenó tres pasos sin perderse y eligió bien la herramienta de respuesta.
+
+Por el estilo telegráfico de los bloques `[thought]` y el formato de los
+`tool_call_id`, el turno no lo sirvió un modelo de Anthropic. Es decir: el aviso
+de la documentación de OpenRouter —*«Claude Code is optimized for Anthropic
+models»*— **no se cumplió en la práctica** para esta tarea. No es prueba de que
+aguante una etapa entera, pero el tool use básico y el encadenado sobreviven.
+
+### ❌ Reintento del 22 de septiembre: no llegó a correr
+
+Se repitió el mismo envío con los cinco peers en `Stopped running=false`. El
+mensaje entró en la sala, el `architect` **no despertó**, no se creó `PING.md`
+y no hubo error en ninguna parte.
+
+No invalida el resultado del 18: mide otra cosa. Lo que demuestra es que **una
+mención no arranca un runtime parado**, y que el fallo es silencioso. Está
+documentado en [FABRICA.md](FABRICA.md), sección «Cuando la banda está parada».
+
 ---
 
 ## Comparación de las tres vías
