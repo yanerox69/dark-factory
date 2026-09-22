@@ -70,7 +70,9 @@ Jam-owned se relanza solo con el siguiente mensaje.
 
 La descripción debe tener **mínimo 10 caracteres** o el formulario no deja crear.
 
-Nombres y descripciones exactas en [banda/01-briefs.md](banda/01-briefs.md).
+Usa los nombres y las descripciones de abajo tal cual: todas superan el mínimo.
+El mandato completo de cada asiento está en [roles/](roles/) y es lo que se pega
+en las instrucciones del agente, no en el campo de descripción.
 
 - [ ] `architect` — planifica, revisa, decide. Nunca implementa.
 - [ ] `spec-warden` — conformidad literal con la especificación.
@@ -114,8 +116,9 @@ jam --profile <perfil> --session <scope> plan diagram <chat-id> --file <ws>/arch
 jam --profile <perfil> --session <scope> plan set     <chat-id> <ws>/plan.md --label "Plan" --snapshot
 ```
 
-Plantillas en [plantillas/](plantillas/). Cópialas a la carpeta de trabajo de los
-agentes con los nombres exactos `plan.md` y `architecture.json`.
+Las plantillas son [plan.md](plan.md) y [architecture.json](architecture.json), en
+la raíz. Cópialas a la carpeta de trabajo de los agentes conservando esos nombres
+exactos.
 
 - [ ] `architecture.json` publicado con `--snapshot`
 - [ ] `plan.md` publicado con `--snapshot`
@@ -126,7 +129,7 @@ agentes con los nombres exactos `plan.md` y `architecture.json`.
 
 ## 8. Ensayo general
 
-Ejecuta [ensayo/ensayo-general.md](ensayo/ensayo-general.md) completo.
+Ejecuta [ensayo-general.md](ensayo-general.md) completo.
 
 Esto no prueba tu código: prueba **la fábrica**. Si algo falla, tienes hasta el
 25 de septiembre para pedir ayuda en el Discord de BAND.
