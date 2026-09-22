@@ -125,6 +125,64 @@ y los agentes se crean con:
 Pon un **límite de gasto** en la Consola antes de arrancar: cinco agentes en
 paralelo consumen rápido.
 
+## ⚠️ Cuando la banda está parada
+
+Comprobado el 22 de septiembre de 2026, con los cinco peers en
+`Stopped running=false`. Esto es lo que pasa, y casi nada avisa.
+
+### Una mención NO arranca un runtime parado
+
+El hallazgo que más caro sale. Se mandó a la sala la tarea del `PING.md`,
+mencionando correctamente al `architect` por su id. Resultado:
+
+| | |
+|---|---|
+| Mensaje entregado en la sala | ✅ sí, consta en el log |
+| `architect` despierta | ❌ no, sigue `Stopped` |
+| `PING.md` creado | ❌ no |
+| Error en algún sitio | ❌ **ninguno** |
+
+**Es un no-op silencioso.** El mensaje queda en la sala como si nada.
+
+La regla «una mención despierta» vale para un agente **con runtime vivo** que
+está ocioso en la sala. No arranca en frío un worker parado. Si el día 26 a las
+12:00 la banda está caída, mandar la tarea a la sala no hace absolutamente nada
+y no te lo dice nadie. **Comprueba `jam list` antes de mandar trabajo.**
+
+### Casi todo el CLI necesita el worker vivo
+
+Cualquier comando con `--session <agente>` o `--as <agente>` falla con
+`peer <x> has no running worker` — **incluidas las lecturas**:
+
+```
+jam --session architect chat participants <room>   ❌
+jam --session architect chat list                  ❌
+jam inbox --as yanerox69/architect                 ❌
+jam restart --as yanerox69/architect               ❌
+```
+
+`jam restart` es especialmente engañoso: sirve para **desatascar un runtime
+vivo**, no para arrancar uno parado. Pide un worker corriendo para reiniciarlo,
+así que con la banda caída es circular.
+
+### La salida de emergencia: `jam room`
+
+`jam room` lee y escribe **como dueño de la cuenta**, sin necesidad de ningún
+agente corriendo. Es lo único que funciona con la banda entera parada:
+
+```powershell
+jam room participants 01658ca5-794f-4b70-859a-49c7441442b1
+jam room messages     01658ca5-794f-4b70-859a-49c7441442b1
+jam room send         01658ca5-794f-4b70-859a-49c7441442b1 "<texto>" --mention <agent-id>
+```
+
+⚠️ `jam room send` **exige `--mention <agent-id>`**, con el UUID del agente, no
+el handle. Sin él corta con `at least one --mention <id> is required (Human API)`.
+Los ids salen de `jam room participants`.
+
+⚠️ Una identidad que **no es miembro** de la sala recibe `HTTP 404: not_found` al
+intentar leerla. No es que la sala no exista: es que ese peer no está dentro.
+
 ## Comandos que vas a repetir
 
 Define primero el atajo en PowerShell:
@@ -206,8 +264,10 @@ No lo uses salvo desastre.
 
 ## Reglas que no puedes olvidar
 
-1. **Una mención despierta; añadir a la sala no.** Sin `@handle` el mensaje no
-   llega a nadie. Escribe el handle como token suelto, sin puntuación pegada.
+1. **Una mención despierta a un agente vivo; añadir a la sala no.** Sin `@handle`
+   el mensaje no llega a nadie. Escribe el handle como token suelto, sin
+   puntuación pegada. ⚠️ Pero una mención **no arranca un runtime parado**: eso
+   falla en silencio. Ver «Cuando la banda está parada» más arriba.
 2. **No cablees el destinatario siguiente** en la instrucción del anterior. Cada
    agente consulta los participantes y menciona él mismo al siguiente.
 3. **Home → "Assign work" crea una sala nueva cada vez.** Tu fábrica vive en
