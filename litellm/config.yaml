@@ -8,10 +8,17 @@
 
 model_list:
   # El que escribe código y planifica. 131K de contexto, ~500 tok/s.
+  #
+  # merge_reasoning_content_in_choices: los GPT-OSS son modelos de razonamiento
+  # y devuelven `reasoning_content` como campo aparte. Claude Code lo guarda en
+  # el historial y lo reenvia en el turno siguiente, y ahi Groq corta con
+  # "property 'reasoning_content' is unsupported". Fundiendolo en el contenido
+  # no existe el campo, asi que no hay nada que reenviar.
   - model_name: factory-main
     litellm_params:
       model: groq/openai/gpt-oss-120b
       api_key: os.environ/GROQ_API_KEY
+      merge_reasoning_content_in_choices: true
 
   # El modelo rápido, para las operaciones baratas de Claude Code.
   - model_name: factory-fast
