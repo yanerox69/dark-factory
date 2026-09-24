@@ -132,17 +132,73 @@ factory-alt   →  write_file {"content":"pong","path":"PING.md"}
 Era el riesgo mayor: que Groq soporte tool calling y que LiteLLM lo traduzca
 bien entre formatos Anthropic y OpenAI son cosas distintas. Las dos se cumplen.
 
+## 🚫 El bucle agéntico NO funciona — probado el 24-09-2026
+
+Todo lo verde de arriba son **llamadas sueltas**. Con el `architect` corriendo y
+la prueba del `PING.md` lanzada de verdad, el turno falla siempre:
+
+```
+API Error: 400 litellm.BadRequestError: GroqException -
+{"error":{"message":"'messages.109' : for 'role:assistant' the following must be
+satisfied[('messages.109' : property 'reasoning_content' is unsupported)]",
+"type":"invalid_request_error"}}
+```
+
+### La causa
+
+Los modelos de razonamiento devuelven `reasoning_content` como campo aparte.
+Claude Code lo guarda en el historial y lo reenvía en el turno siguiente, y
+**Groq rechaza ese mismo campo al recibirlo**. Por eso las pruebas de una sola
+llamada pasan: sin historial que reenviar no hay nada que rechazar.
+
+No es un fallo de esta configuración. Es una incompatibilidad conocida aguas
+arriba, con el mismo error reportado en Spring AI, Vercel AI SDK, gptel y Jan.
+
+### Por qué no se arregla cambiando de modelo
+
+**Los tres modelos de contexto grande de esta cuenta razonan** —los dos GPT-OSS
+y el Qwen—. El resto son Whisper, Orpheus, guardarraíles y un modelo de 4K. No
+hay a dónde cambiar dentro de Groq.
+
+### Por qué no bastó `merge_reasoning_content_in_choices`
+
+Se añadió a `factory-main` y **no resolvió**: evitaría el problema en un hilo
+limpio, pero el historial del `architect` ya tenía el campo grabado en
+`messages.109` de los intentos anteriores. Se queda en la config porque es
+correcta para un hilo nuevo.
+
+### Y la reparación es circular
+
+```
+jam runtime compact --as yanerox69/architect
+  → error: This agent is paused. Send a message to wake it or restart the session.
+```
+
+Para compactar el contexto hay que despertar al agente; despertarlo dispara el
+turno que falla con el historial envenenado.
+
+### El matiz que importa
+
+**El historial no está roto: es incompatible con Groq.** Ese campo solo lo
+rechaza Groq. Este mismo `architect`, con este mismo historial creciendo,
+completó el PING el 18 de septiembre vía OpenRouter — ver
+[OPENROUTER.md](OPENROUTER.md). Volver allí no arrastra este problema.
+
+### Veredicto
+
+**Groq no sirve para un agente que ya tiene historial.** Si se retoma, la prueba
+limpia es con un **agente nuevo**, sin contaminar, para ver si
+`merge_reasoning_content_in_choices` resuelve el caso de verdad. Eso no se hace
+a dos días del arranque.
+
 ## ⚠️ Lo que sigue sin probar
 
-1. **El bucle agéntico dentro de Jam.** Lo de arriba es una llamada suelta. El
-   ciclo completo —resultado de herramienta devuelto al modelo, encadenado de
-   pasos, respuesta en la sala— solo lo mide la prueba del `PING.md` con la
-   banda corriendo. Juega a favor que ese bucle ya sobrevivió a un modelo
-   no-Anthropic el 18 de septiembre: ver [OPENROUTER.md](OPENROUTER.md).
+1. **Un hilo limpio con la opción de fusión activa.** Es la única pregunta viva
+   sobre esta ruta, y necesita un agente recién creado.
 2. **30 peticiones/minuto sostenidas.** Techo estrecho para cinco agentes en
-   paralelo. Para tres va justo pero razonable. Sin medir bajo carga real.
-3. **Calidad en una etapa entera.** Que elija bien una herramienta en un caso
-   de juguete no dice cómo se comporta en cuatro horas de trabajo.
+   paralelo. Sin medir bajo carga real.
+3. **Calidad en una etapa entera.** Que elija bien una herramienta en un caso de
+   juguete no dice cómo se comporta en cuatro horas de trabajo.
 
 ## Comprobaciones
 
