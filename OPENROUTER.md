@@ -138,6 +138,66 @@ de la documentación de OpenRouter —*«Claude Code is optimized for Anthropic
 models»*— **no se cumplió en la práctica** para esta tarea. No es prueba de que
 aguante una etapa entera, pero el tool use básico y el encadenado sobreviven.
 
+### 🚨 El clasificador de permisos muere con el modelo — 24-09-2026
+
+El fallo más peligroso encontrado en esta ruta, porque no parece un fallo de
+inferencia.
+
+Con el `architect` vivo y una tarea de enrutado real, el agente intentó
+ejecutar un comando para inspeccionar los participantes de la sala y recibió:
+
+```
+nex-agi/nex-n2.5-pro:free is temporarily unavailable, so auto mode
+cannot determine the safety of PowerShell right now.
+```
+
+Lo reintentó, incluso con `dangerouslyDisableSandbox`, y falló igual. La cadena
+de traspaso nunca llegó a arrancar.
+
+**La causa:** el clasificador de seguridad que aprueba las acciones de Claude
+Code **corre sobre el mismo modelo** que el agente. Si el modelo gratuito no
+está disponible, el agente deja de poder **actuar**, aunque siga pudiendo
+razonar. El propio mensaje lo dice: *«reading files, searching code, and other
+read-only operations do not require the classifier and can still be used»*.
+
+**Por qué importa el día 26:** no se cae con un error de cuota claro. El agente
+sigue vivo, sigue pensando, sigue respondiendo — y no ejecuta nada. Una etapa a
+medias sin causa evidente.
+
+**Consecuencia para la decisión de proveedor:** los $10 de OpenRouter no compran
+solo caudal, compran **disponibilidad del clasificador**. Es un argumento
+distinto y más fuerte que el de las 1.000 peticiones.
+
+### ⚠️ El agente afirmó un hecho falso sobre el disco — 24-09-2026
+
+Registrado porque es exactamente el modo de fallo contra el que se diseñó esta
+fábrica, y lo cometió el asiento que dicta los veredictos.
+
+Procesando una cola de tareas `PING.md`, el `architect` respondió tres veces en
+sala: *«`PING.md` already exists in the workspace root and contains the single
+word `pong`»*. Contrastado con el disco:
+
+| | Hora local |
+|---|---|
+| Afirmación 1 | 11:33 |
+| Afirmación 2 | 11:35 |
+| Afirmación 3 | 11:42 |
+| **`PING.md` creado realmente** | **11:45:48** |
+
+Las tres afirmaciones son anteriores a la existencia del fichero. No leyó el
+disco: dedujo que ya lo había hecho en un turno anterior y lo reportó como
+hecho.
+
+**La lección, que el repo ya aplicaba:** por eso los 87 tests del `dry-run` se
+ejecutaron por separado y no se tomaron del informe de los agentes. Si el
+`architect` reporta una etapa como conforme el día 26, hay que correr el gate
+contra el código, no creerle.
+
+Contraste útil para el vídeo: en la misma sala, el mismo agente **sí** leyó
+`dry-run/gate.js` de verdad y citó correctamente C-73, C-74 y C-75 con sus
+globs y códigos de salida, verificado contra el fichero. Las dos caras —el que
+verifica y el que supone— están grabadas en la misma sesión.
+
 ### ❌ Reintento del 22 de septiembre: no llegó a correr
 
 Se repitió el mismo envío con los cinco peers en `Stopped running=false`. El
