@@ -1,0 +1,36 @@
+# LiteLLM — traductor entre Claude Code y Groq.
+#
+# Claude Code habla el protocolo Anthropic Messages. Groq habla formato OpenAI.
+# LiteLLM sirve /v1/messages en formato Anthropic y traduce hacia Groq, así que
+# los agentes de Jam no se enteran de que detrás no hay un modelo de Anthropic.
+#
+# La clave nunca vive aquí: se lee del entorno del proceso que arranca el proxy.
+
+model_list:
+  # El que escribe código y planifica. 131K de contexto, ~500 tok/s.
+  - model_name: factory-main
+    litellm_params:
+      model: groq/openai/gpt-oss-120b
+      api_key: os.environ/GROQ_API_KEY
+
+  # El modelo rápido, para las operaciones baratas de Claude Code.
+  - model_name: factory-fast
+    litellm_params:
+      model: groq/openai/gpt-oss-20b
+      api_key: os.environ/GROQ_API_KEY
+
+  # Alternativa si los GPT-OSS fallan en tool calling. Mismo contexto.
+  # Verificado el 23-09-2026 contra /v1/models: la cuenta NO tiene Llama de
+  # chat, Mixtral ni Gemma, pese a lo que dice la ficha de public-apis.
+  - model_name: factory-alt
+    litellm_params:
+      model: groq/qwen/qwen3.8-27b
+      api_key: os.environ/GROQ_API_KEY
+
+litellm_settings:
+  # Un turno agéntico puede tardar. El corte por defecto se queda corto.
+  request_timeout: 600
+  drop_params: true
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
