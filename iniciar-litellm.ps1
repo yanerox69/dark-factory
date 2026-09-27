@@ -13,9 +13,14 @@
 $ErrorActionPreference = 'Stop'
 
 $key = [Environment]::GetEnvironmentVariable('DARKFACTORY_GROQ_KEY', 'User')
-if (-not $key) {
-    Write-Host "FALTA la clave de Groq. Define DARKFACTORY_GROQ_KEY y vuelve a intentarlo." -ForegroundColor Red
-    Write-Host "  https://console.groq.com/keys"
+if (-not $key) { $key = 'no-groq-key' }
+
+# Featherless: patrocinador del hackathon. Es la via de pago, la que sostiene
+# el clasificador de permisos cuando el tramo gratuito se cae.
+$ff = [Environment]::GetEnvironmentVariable('DARKFACTORY_FEATHERLESS_KEY', 'User')
+if (-not $ff) {
+    Write-Host "FALTA la clave de Featherless. Define DARKFACTORY_FEATHERLESS_KEY." -ForegroundColor Red
+    Write-Host "  Codigo promocional WEAREDEVS26 en featherless.ai"
     exit 1
 }
 
@@ -54,6 +59,7 @@ Write-Host ""
 docker run --rm `
     -p 127.0.0.1:4000:4000 `
     -e GROQ_API_KEY=$key `
+    -e FEATHERLESS_API_KEY=$ff `
     -e LITELLM_MASTER_KEY=$master `
     -v "${cfg}:/app/config.yaml:ro" `
     ghcr.io/berriai/litellm:main-latest `

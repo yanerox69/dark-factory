@@ -34,6 +34,23 @@ model_list:
       model: groq/qwen/qwen3.8-27b
       api_key: os.environ/GROQ_API_KEY
 
+  # --- Featherless: el patrocinador del hackathon, $25 en creditos ---------
+  # Compatible con OpenAI, asi que va por la ruta generica con api_base.
+  # A diferencia del tramo gratuito de OpenRouter, esto es inferencia de pago:
+  # el clasificador de permisos de Claude Code no se queda sin modelo.
+  # El prefijo `openai/` hace que LiteLLM intente /v1/responses, que Featherless
+  # no expone (404 Route POST:/v1/responses not found). El proveedor propio
+  # `featherless_ai/` va a /v1/chat/completions, que es lo que hay.
+  - model_name: ff-main
+    litellm_params:
+      model: featherless_ai/zai-org/GLM-5.2
+      api_key: os.environ/FEATHERLESS_API_KEY
+
+  - model_name: ff-fast
+    litellm_params:
+      model: featherless_ai/zai-org/GLM-5.2
+      api_key: os.environ/FEATHERLESS_API_KEY
+
 litellm_settings:
   # Un turno agéntico puede tardar. El corte por defecto se queda corto.
   request_timeout: 600
