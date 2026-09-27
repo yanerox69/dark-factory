@@ -10,6 +10,11 @@ secrets/
 **/credentials.json
 **/.credentials.json
 
+# Identidades de los asientos de Band: agent_id + api_key acuñada una sola vez.
+# Su sitio es band-work\, fuera de todo repo; esto es solo la red de seguridad
+# por si alguien lo copia aquí sin pensar.
+agent_config.yaml
+
 # Dependencias y build
 node_modules/
 dist/

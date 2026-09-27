@@ -84,3 +84,42 @@ o falla la puerta 1:
 Harness: OpenCode
 Model: MiniMaxAI/MiniMax-M2.5
 ```
+
+---
+
+## ✅ El asiento completo, en sala, verificado — 27-09-2026
+
+Lo de arriba probaba que OpenCode escribe ficheros. Lo que faltaba era el asiento
+entero: despertar con una mención de Band, usar herramientas y responder en la
+sala, sin nadie delante. Pasa. El log turno a turno está en
+[evidencia/asiento-opencode.md](evidencia/asiento-opencode.md).
+
+Dos cosas que salieron de ahí y cambian el montaje:
+
+**La sala se construye por la API REST de Band, no por Jam.** `jam chat new --with`
+falla con `error: peer not found` para un agente externo. Con la clave de usuario,
+`create_my_chat_room` + `add_my_chat_participant` + `send_my_chat_message` hacen
+todo el trabajo. La fábrica ya no depende del plugin de Claude Code de Jam —el que
+lleva días avisando *«Claude plugin did not converge»*—, así que ese aviso dejó de
+importar.
+
+**La `api_key` de un agente se acuña una sola vez.** Si se pierde entre el registro
+y el disco, el agente queda inútil y hay que borrarlo para liberar el nombre. Pasó
+con `coordinator`. Guardar antes de imprimir.
+
+## Los asientos juzgados
+
+| Asiento | Mandato |
+|---|---|
+| `coordinator` | planifica, verifica contra el código y sostiene el gate |
+| `implementer` | el único que escribe código de producción |
+| `reviewer` | conformidad literal y ataque de concurrencia |
+
+Registrados como agentes externos en Band, con sus claves en
+`band-work\agent_config.yaml`, **fuera de todo repositorio**. Los nombres coinciden
+con los ficheros de `mandates/`, que es lo que exige la puerta 1: el mandato se
+llama como la sala muestra al asiento.
+
+Las cinco identidades viejas (`architect`, `spec-warden`, `builder`, `race-hunter`,
+`regression-guard`) siguen en la cuenta pero **no entran en la sala juzgada**: sus
+claves las guarda Jam para sus propios runtimes y no hay comando que las exporte.

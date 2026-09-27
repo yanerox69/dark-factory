@@ -21,6 +21,11 @@ Requisitos previos:
 Sobre el YAML: `load_agent_config` lee la identidad y la clave del agente de
 Band. Ese fichero NO va en el repo — el repo es publico y una clave commiteada
 queda en el historial para siempre.
+
+Por defecto `load_agent_config` busca `agent_config.yaml` en el DIRECTORIO DE
+TRABAJO, lo que significa que arrancar el asiento desde este repo dejaria la
+clave a un `git add` de distancia. Por eso la ruta se pasa explicita y el script
+se niega a leer un YAML que este dentro de este repositorio.
 """
 
 import argparse
@@ -48,6 +53,16 @@ MODELO_POR_DEFECTO = "zai-org/GLM-5.2"
 
 SERVIDOR = "http://127.0.0.1:4096"
 
+# Un nivel por encima de `result/`, para que ningun `git add` de ningun repo lo
+# alcance. Es el fichero que `load_agent_config` lee en formato por clave:
+#
+#     <asiento>:
+#       agent_id: "..."
+#       api_key: "..."
+IDENTIDADES = r"C:\Users\Yanero\Desktop\band-work\agent_config.yaml"
+
+ESTE_REPO = os.path.dirname(os.path.abspath(__file__))
+
 
 def main() -> int:
     p = argparse.ArgumentParser(description="Arranca un asiento de OpenCode en Band")
@@ -55,6 +70,7 @@ def main() -> int:
     p.add_argument("--model", default=MODELO_POR_DEFECTO)
     p.add_argument("--dir", default=DIRECTORIO_RESULTADO)
     p.add_argument("--url", default=SERVIDOR)
+    p.add_argument("--config", default=IDENTIDADES, help="YAML de identidades")
     args = p.parse_args()
 
     if not os.environ.get("FEATHERLESS_API_KEY"):
@@ -65,7 +81,16 @@ def main() -> int:
         print(f"La ruta del resultado debe ser absoluta: {args.dir}", file=sys.stderr)
         return 1
 
-    agent_id, api_key = load_agent_config(args.asiento)
+    config = os.path.abspath(args.config)
+    if os.path.commonpath([config, ESTE_REPO]) == ESTE_REPO:
+        print(
+            f"El YAML de identidades esta DENTRO de este repositorio:\n  {config}\n"
+            "Muevelo fuera. Este repo es publico.",
+            file=sys.stderr,
+        )
+        return 1
+
+    agent_id, api_key = load_agent_config(args.asiento, config_path=config)
 
     adapter = OpencodeAdapter(
         config=OpencodeAdapterConfig(
@@ -89,6 +114,7 @@ def main() -> int:
     print(f"modelo    : featherless/{args.model}")
     print(f"directorio: {args.dir}")
     print(f"servidor  : {args.url}")
+    print(f"identidad : {config}")
     print("conectando a Band...")
 
     agent = Agent.create(adapter=adapter, agent_id=agent_id, api_key=api_key)
