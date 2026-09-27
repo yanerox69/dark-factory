@@ -33,7 +33,7 @@ import asyncio
 import os
 import sys
 
-from band import Agent, Emit
+from band import Agent, Capability, Emit
 from band.adapters import OpencodeAdapter, OpencodeAdapterConfig
 from band.config import load_agent_config
 
@@ -64,6 +64,26 @@ IDENTIDADES = r"C:\Users\Yanero\Desktop\band-work\agent_config.yaml"
 ESTE_REPO = os.path.dirname(os.path.abspath(__file__))
 
 
+def cargar_mandato(directorio: str, asiento: str) -> str:
+    """Lee `mandates/<asiento>.md` del repo de resultado.
+
+    El mandato NO es documentacion: `custom_section` va al prompt de sistema del
+    asiento, asi que este fichero es literalmente lo que gobierna al agente. Es
+    la propiedad que el rubro pide — "FACTORY.md and mandates/ are enough to
+    stand it up" — y aqui es verdad por construccion, no por promesa: si el
+    mandato no describe bien al asiento, el asiento se porta mal.
+
+    Por eso tambien el nombre del fichero tiene que ser el del asiento tal y
+    como lo muestra la sala: es la puerta 1, y aqui ademas es el mecanismo.
+    """
+    ruta = os.path.join(directorio, "mandates", asiento + ".md")
+    with open(ruta, encoding="utf-8") as fh:
+        texto = fh.read().lstrip("\ufeff").strip()
+    if not texto:
+        raise ValueError(f"El mandato esta vacio: {ruta}")
+    return texto
+
+
 def main() -> int:
     p = argparse.ArgumentParser(description="Arranca un asiento de OpenCode en Band")
     p.add_argument("asiento", help="nombre del asiento, tal y como esta en su YAML")
@@ -91,6 +111,7 @@ def main() -> int:
         return 1
 
     agent_id, api_key = load_agent_config(args.asiento, config_path=config)
+    mandato = cargar_mandato(args.dir, args.asiento)
 
     adapter = OpencodeAdapter(
         config=OpencodeAdapterConfig(
@@ -98,6 +119,11 @@ def main() -> int:
             directory=args.dir,
             provider_id="featherless",
             model_id=args.model,
+            # El mandato del asiento, tal cual, como prompt de sistema.
+            custom_section=mandato,
+            # El defecto es False. Sin esto el asiento no sabe usar la sala:
+            # ni responder, ni delegar, ni publicar en el tablero de trabajo.
+            include_base_instructions=True,
             # Por defecto es "manual", que deja cada llamada a herramienta
             # esperando una respuesta humana y bloquea el turno. El run que se
             # juzga tiene que ser desatendido, asi que no hay alternativa.
@@ -107,7 +133,27 @@ def main() -> int:
             # con estos modelos, asi que cinco minutos corta turnos reales.
             turn_timeout_s=900,
         ),
-        emit={Emit.TOOL_CALLS, Emit.TASK_EVENTS},
+        # TOOL_CALLS y TASK_EVENTS son la evidencia de la sala. USAGE esta aqui
+        # por una razon concreta: el rubro pide "measured time and model spend",
+        # y con esto el gasto en tokens queda en el propio log de la sala, atado
+        # al turno que lo produjo. Medirlo despues, desde el panel del proveedor,
+        # solo da un total de la maquina que incluye el desarrollo.
+        #
+        # TASK_EVENTS no es narracion: lleva el session_id de OpenCode, que es
+        # como el asiento reengancha su sesion al reiniciar. Quitarlo hace que
+        # cada reinicio empiece de cero.
+        emit={Emit.TOOL_CALLS, Emit.TASK_EVENTS, Emit.USAGE},
+        # Sin esto el asiento arranca con 7 herramientas —solo las de chat— y
+        # NO tiene tablero de trabajo. Importa porque el tablero es la
+        # superficie de evidencia: un tablero vacio se lee como una fabrica que
+        # no hizo nada, y el mandato del coordinator lo exige explicitamente.
+        #
+        # TASKS  -> create_task, update_task, list_tasks, get_task,
+        #           get_task_history, get_board, set_board
+        # MEMORY -> store_memory y companeras, para que un asiento conserve su
+        #           lista de puntos abiertos entre rondas en vez de fiarse del
+        #           historial de la sala.
+        capabilities={Capability.TASKS, Capability.MEMORY},
     )
 
     print(f"asiento   : {args.asiento}")
@@ -115,6 +161,7 @@ def main() -> int:
     print(f"directorio: {args.dir}")
     print(f"servidor  : {args.url}")
     print(f"identidad : {config}")
+    print(f"mandato   : mandates/{args.asiento}.md ({len(mandato)} caracteres)")
     print("conectando a Band...")
 
     agent = Agent.create(adapter=adapter, agent_id=agent_id, api_key=api_key)
