@@ -1,9 +1,10 @@
 # El vídeo
 
-Los rótulos están montados. Falta el metraje de la sala, que solo puedes grabar
-tú desde Band Desktop.
+✅ **Terminado.** `montaje.mp4` — **2:40, 11,3 MB**, muy por debajo de los
+límites de 5 minutos y 300 MB.
 
-**Total: 2:55.** 85 s de rótulos (hechos) + 90 s de sala (por grabar).
+85 s de rótulos generados + 75 s de la sala `dark-factory` grabada en Band
+Desktop.
 
 ## Qué hay aquí
 
@@ -16,29 +17,41 @@ tú desde Band Desktop.
 
 ## La línea de tiempo
 
-| Desde | Hasta | Qué va | Estado |
-|---|---|---|---|
-| 0:00 | 0:12 | `clips/01-hook.mp4` | ✅ |
-| 0:12 | 0:30 | `clips/02-claim.mp4` | ✅ |
-| 0:30 | 0:38 | **Toma A** — lista de participantes de la sala | ⬜ 8 s |
-| 0:38 | 0:50 | **Toma B** — el mensaje de arranque, **4:06 p.m.** | ⬜ 12 s |
-| 0:50 | 1:08 | **Toma C** — la checklist de 158 ítems, **4:29 p.m.** | ⬜ 18 s |
-| 1:08 | 1:33 | **Toma D** — el rechazo: **4:12 → 4:29 p.m.** | ⬜ 25 s |
-| 1:33 | 1:48 | **Toma E** — `@mention` y respuesta, **4:33 → 4:34 p.m.** | ⬜ 15 s |
-| 1:48 | 2:00 | **Toma F** — el tablero de 17 tareas | ⬜ 12 s |
+En el orden en que los une `orden.txt`:
 
-Las horas son las de Jam. La sala es **`dark-factory`**, no ninguna de las
+| Tramo | Qué es | Dura |
+|---|---|---|
+| `clips/01-hook.mp4` | *What if two thirds of your factory weren't allowed to write code?* | 12 s |
+| `clips/02-claim.mp4` | *This is Dark Factory, built in BAND* | 18 s |
+| `footage/B.mp4` | El brief de arranque, 4:06 p.m. | 12 s |
+| `footage/C.mp4` | La checklist de 158 ítems, 4:29 p.m. | 13 s |
+| `footage/D1.mp4` | Lo que el coordinator recomendó sobre A3, 4:12 p.m. | 10 s |
+| `footage/D2.mp4` | **El rechazo del reviewer**, con C-152 y C-155 | 15 s |
+| `footage/E.mp4` | El handoff, `@mention` en ambos sentidos, 4:33 → 4:34 p.m. | 13 s |
+| `footage/F.mp4` | El barrido por los 451 mensajes | 12 s |
+| `clips/03-proof-tests.mp4` | *147 tests. 147 passing* | 7 s |
+| `clips/04-proof-float.mp4` | *No `float64` on the money path* | 7 s |
+| `clips/05-proof-cost.mp4` | *3 h 49 m · 11,743,469 tokens · $11.70* | 8 s |
+| `clips/06-honesty.mp4` | *We stopped the reviewer. It missed two defects.* | 14 s |
+| `clips/07-deletetest.mp4` | *Take BAND out… it disappears* | 12 s |
+| `clips/08-closing.mp4` | El repositorio | 7 s |
+
+Las horas son las que muestra Jam, no las del `room.json`, que guarda UTC cuatro
+horas por delante. La sala es **`dark-factory`**, no ninguna de las
 `New Session`: esas son el run limpio abortado y el banco de pruebas del motor.
-| 2:00 | 2:07 | `clips/03-proof-tests.mp4` | ✅ |
-| 2:07 | 2:14 | `clips/04-proof-float.mp4` | ✅ |
-| 2:14 | 2:22 | `clips/05-proof-cost.mp4` | ✅ |
-| 2:22 | 2:36 | `clips/06-honesty.mp4` | ✅ |
-| 2:36 | 2:48 | `clips/07-deletetest.mp4` | ✅ |
-| 2:48 | 2:55 | `clips/08-closing.mp4` | ✅ |
 
-**Las tomas G y H son opcionales.** Si quieres la suite y `money.go` en pantalla,
-ponlos de fondo bajo los rótulos 03 y 04 en Clipchamp, con el texto del rótulo
-encima. El vídeo funciona sin ellos: los rótulos se sostienen solos.
+**La toma A se descartó.** El panel `Participants` con los tres asientos está
+abierto en todos los planos, así que grabarla aparte era repetir lo que ya se ve.
+**La toma F cambió**: el tablero no se puede grabar porque Jam solo lo renderiza
+con una sesión de código enganchada, y engancharla habría añadido actividad nueva
+a la sala juzgada. En su lugar va un barrido por los 451 mensajes, que dice lo
+mismo y está disponible.
+
+### Qué se versiona y qué no
+
+`cards/`, `png/`, `clips/`, `narracion.srt` y este README sí. `footage/`,
+`frames/`, `orden.txt` y `montaje.mp4` no: son material en bruto e intermedio, y
+el vídeo final se entrega por lablab, no por el repositorio.
 
 ## Montaje con ffmpeg
 
