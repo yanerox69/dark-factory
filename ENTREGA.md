@@ -186,12 +186,30 @@ Developer Tools, Multi-Agent Systems, Autonomous Software Engineering
 
 https://claude.ai/artifact/XdwuYSEbNLzw36ubYSFNYh
 
-El PDF se exporta desde la propia página: **Share › Export**. El deck es privado
-hasta que lo compartas desde ese mismo menú.
+Hay dos formas de tener el PDF, y ambas valen:
 
-El `deck.pdf` que había en la raíz de este repo se borró el 28-09-2026: era del
-19 de septiembre, anterior al inicio de la ventana de build, y describía la
-banda de cinco agentes. Un PDF obsoleto en la raíz es justo lo que se sube por
+**1. Desde la propia página** — **Share › Export**. Es la vía buena: usa el
+renderizador real del deck. El deck es privado hasta que lo compartas desde ese
+mismo menú.
+
+**2. [`deck.pdf`](deck.pdf) en la raíz de este repo.** Reconstruido el
+28-09-2026 desde el HTML de las diapositivas con Chrome en headless. 15 páginas
+a 20×11,25 pulgadas, que es 16:9 exacto.
+
+⚠️ Si se regenera, dos cosas que cuestan un rato descubrir:
+
+- **`@page` en píxeles no funciona.** Chrome ignora `size: 1920px 1080px` y deja
+  bandas del color del fondo a la derecha y abajo. Hay que darlo en pulgadas:
+  `size: 20in 11.25in`.
+- **Los márgenes por defecto de Chrome cortan texto.** El visor de diapositivas
+  anula los de `h1`, `p` y `table`; Chrome no. Sin un `margin:0` explícito, la
+  última línea de cada columna se pierde por debajo del borde.
+- Los `<x-connector>` del diagrama de enrutamiento no existen fuera del visor.
+  El fichero de impresión lleva un polyfill que los convierte en divs rotados
+  con una punta de flecha en CSS.
+
+El `deck.pdf` anterior —el del 19 de septiembre, con la banda de cinco agentes—
+se borró ese mismo día. Un PDF obsoleto en la raíz es justo lo que se sube por
 error el día de la entrega.
 
 ---

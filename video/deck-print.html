@@ -1,0 +1,480 @@
+﻿<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Dark Factory — pocketful</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+@page { size: 20in 11.25in; margin: 0 }
+html,body{margin:0;padding:0;width:1920px;background:#12151A;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+section{width:1920px;height:1080px;box-sizing:border-box;position:relative;overflow:hidden;
+  page-break-after:always;break-after:page;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+section:last-of-type{page-break-after:auto;break-after:auto}
+h1,h2,h3,p,ul,ol,li,table,tr,td,th{margin:0}
+h1{font-size:96px;font-weight:600;line-height:1.1}
+h2{font-size:64px;font-weight:600;line-height:1.15}
+h3{font-size:44px;font-weight:600;line-height:1.2}
+p{font-size:32px;font-weight:400;line-height:1.4}
+li{font-size:32px;line-height:1.4}
+ul,ol{padding-left:48px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:0.35em 0.6em;text-align:left;vertical-align:top}
+h1,h2,h3,p,ul,ol,li,table,tr,td,th{margin:0}
+h1{font-size:96px;font-weight:600;line-height:1.1}
+h2{font-size:64px;font-weight:600;line-height:1.15}
+h3{font-size:44px;font-weight:600;line-height:1.2}
+p{font-size:32px;font-weight:400;line-height:1.4}
+li{font-size:32px;line-height:1.4}
+ul,ol{padding-left:48px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:0.35em 0.6em;text-align:left;vertical-align:top}
+h1,h2,h3,p,ul,ol,li,table,tr,td,th{margin:0}
+h1{font-size:96px;font-weight:600;line-height:1.1}
+h2{font-size:64px;font-weight:600;line-height:1.15}
+h3{font-size:44px;font-weight:600;line-height:1.2}
+p{font-size:32px;font-weight:400;line-height:1.4}
+li{font-size:32px;line-height:1.4}
+ul,ol{padding-left:48px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:0.35em 0.6em;text-align:left;vertical-align:top}
+aside{display:none}
+</style></head><body>
+<section id="cover" data-transition="fade" style="background:#12151A; color:#F4F2ED; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:space-between">
+<div style="display:flex; flex-direction:column; gap:28px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#E8A33D; letter-spacing:0.1em">WEAREDEVELOPERS × BAND · TRACK POCKETFUL · TEAM REVENUEFLOW</p>
+<h1 style="font-size:140px; font-weight:700; line-height:0.98">Dark Factory</h1>
+<p style="font-size:44px; color:#9BA4B0; line-height:1.35; width:1340px">Three coding agents in one BAND room, building a payments service. Two of the three are forbidden from writing code.</p>
+</div>
+<div style="display:flex; gap:24px">
+<div style="flex:1; display:flex; flex-direction:column; gap:8px; background:#1A1E25; padding:32px; border-radius:12px; border-left:4px solid #E8A33D">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:52px; font-weight:700; color:#F4F2ED">147/147</p>
+<p style="font-size:24px; color:#9BA4B0">shipped checks, isolated mode</p>
+</div>
+<div style="flex:1; display:flex; flex-direction:column; gap:8px; background:#1A1E25; padding:32px; border-radius:12px; border-left:4px solid #6FA8C7">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:52px; font-weight:700; color:#F4F2ED">3 h 49 m</p>
+<p style="font-size:24px; color:#9BA4B0">one session, no restarts</p>
+</div>
+<div style="flex:1; display:flex; flex-direction:column; gap:8px; background:#1A1E25; padding:32px; border-radius:12px; border-left:4px solid #6FA8C7">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:52px; font-weight:700; color:#F4F2ED">11.7 M</p>
+<p style="font-size:24px; color:#9BA4B0">tokens, measured in the log</p>
+</div>
+<div style="flex:1; display:flex; flex-direction:column; gap:8px; background:#1A1E25; padding:32px; border-radius:12px; border-left:4px solid #6FA8C7">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:52px; font-weight:700; color:#F4F2ED">$11.70</p>
+<p style="font-size:24px; color:#9BA4B0">of a $25 credit</p>
+</div>
+</div>
+
+</section>
+
+<section id="premise" data-transition="fade" style="background:#F4F2ED; color:#12151A; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:44px">
+<h2 style="font-size:72px; font-weight:700; line-height:1.1; width:1500px">Grading is literal, so speed is the wrong advantage</h2>
+<p style="font-size:36px; color:#4A5568; line-height:1.4; width:1560px">Exact field names, exact status codes, exact error codes. A correct-looking service with one mistyped attribute scores nothing. Building it faster does not help.</p>
+<div style="background:#12151A; padding:48px 56px; border-radius:16px; border-left:8px solid #E8A33D">
+<p style="font-size:48px; font-weight:600; color:#F4F2ED; line-height:1.3">The bottleneck is not implementation speed. It is refusing to hand off anything that does not conform.</p>
+</div>
+<div style="display:flex; gap:32px">
+<div style="flex:1; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:32px; font-weight:700; color:#12151A">What that buys</h3>
+<p style="font-size:28px; color:#4A5568; line-height:1.4">The crew ratio follows: one implementer, one verifier, one planner who also holds the gate. Every change passes a customs post before it counts.</p>
+</div>
+<div style="flex:1; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:32px; font-weight:700; color:#12151A">What it costs</h3>
+<p style="font-size:28px; color:#4A5568; line-height:1.4">Throughput. On work that is already correct the checks add latency and buy nothing. We took the trade because the failure we feared — green tests, wrong names — is silent.</p>
+</div>
+</div>
+<p style="position:absolute; right:128px; bottom:64px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#8A929E">02</p>
+
+</section>
+
+<section id="band" data-transition="fade" style="background:#12151A; color:#F4F2ED; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:44px">
+<h2 style="font-size:72px; font-weight:700; line-height:1.1">The band</h2>
+<table style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:30px; color:#F4F2ED; border:1px solid #2C323B; padding:20px 24px">
+<tr style="background:#1A1E25">
+<th style="width:20%; text-align:left; font-weight:700">Seat</th>
+<th style="width:26%; text-align:left; font-weight:700">Harness and model</th>
+<th style="width:38%; text-align:left; font-weight:700">Role</th>
+<th style="width:16%; text-align:left; font-weight:700">Writes code</th>
+</tr>
+<tr>
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#6FA8C7">coordinator</td>
+<td style="color:#9BA4B0">OpenCode · GLM-5.2</td>
+<td>Plans, splits the work, routes ambiguities, runs the gate</td>
+<td style="color:#9BA4B0">No</td>
+</tr>
+<tr style="background:#1A1E25">
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#E8A33D">implementer</td>
+<td style="color:#9BA4B0">OpenCode · GLM-5.2</td>
+<td>The Go service, the Dockerfile, the tests</td>
+<td style="color:#E8A33D; font-weight:700">Yes</td>
+</tr>
+<tr>
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#6FA8C7">reviewer</td>
+<td style="color:#9BA4B0">OpenCode · GLM-5.2</td>
+<td>Conformance against the specification text, never the report</td>
+<td style="color:#9BA4B0">No</td>
+</tr>
+</table>
+<div style="display:flex; gap:32px">
+<div style="flex:1; background:#1A1E25; padding:40px; border-radius:16px; display:flex; flex-direction:column; gap:14px">
+<h3 style="font-size:32px; font-weight:700; color:#E8A33D">The mandate is the seat</h3>
+<p style="font-size:28px; color:#9BA4B0; line-height:1.4">The runner loads <b style="color:#F4F2ED">mandates/&lt;seat&gt;.md</b> and passes it as that seat's system prompt. It is not documentation. Change the file and the agent behaves differently on its next turn.</p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:40px; border-radius:16px; display:flex; flex-direction:column; gap:14px">
+<h3 style="font-size:32px; font-weight:700; color:#6FA8C7">Same model, different jobs</h3>
+<p style="font-size:28px; color:#9BA4B0; line-height:1.4">One model behind all three seats. The difference between them is entirely the mandate — which is the claim the rubric asks you to make reusable, and here it is true by construction.</p>
+</div>
+</div>
+<p style="position:absolute; right:128px; bottom:64px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#6E7783">03</p>
+
+</section>
+
+<section id="routing" data-transition="fade" style="background:#F4F2ED; color:#12151A; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:space-between">
+<h2 style="font-size:72px; font-weight:700; line-height:1.1">Who talks to whom</h2>
+<p style="font-size:32px; color:#4A5568; line-height:1.4; width:1600px">Adding a seat to a room does not wake it — a message must mention it. So every handoff is an explicit <b style="color:#12151A">@mention</b>, and that is the wiring. Handoff targets are never hardcoded: each mandate tells the seat to inspect the room participants at handoff time and mention whoever holds the next role. The line can be re-crewed at runtime without editing a mandate.</p>
+<div style="position:absolute; left:180px; top:336px; width:400px; height:150px; background:#FFFFFF; border:2px solid #C9CCC6; border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:32px; font-weight:700; color:#12151A">coordinator</p>
+<p style="font-size:24px; color:#5A6270">plans · holds the gate</p>
+</div>
+<div style="position:absolute; left:760px; top:336px; width:400px; height:150px; background:#12151A; border:2px solid #12151A; border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:32px; font-weight:700; color:#E8A33D">implementer</p>
+<p style="font-size:24px; color:#9BA4B0">the only seat that writes</p>
+</div>
+<div style="position:absolute; left:1340px; top:336px; width:400px; height:150px; background:#FFFFFF; border:2px solid #C9CCC6; border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:32px; font-weight:700; color:#12151A">reviewer</p>
+<p style="font-size:24px; color:#5A6270">conformance · the contract</p>
+</div>
+<p style="position:absolute; left:580px; top:352px; width:180px; font-size:24px; color:#5A6270; text-align:center">the contract</p>
+<x-connector x1="580" y1="416" x2="760" y2="416" head="end" route="straight" style="color:#5A6270; border-width:3px"></x-connector>
+<p style="position:absolute; left:1160px; top:352px; width:180px; font-size:24px; color:#5A6270; text-align:center">the handoff</p>
+<x-connector x1="1160" y1="416" x2="1340" y2="416" head="end" route="straight" style="color:#5A6270; border-width:3px"></x-connector>
+<x-connector x1="1540" y1="566" x2="960" y2="566" head="end" route="straight" style="color:#E8A33D; border-width:5px"></x-connector>
+<p style="position:absolute; left:760px; top:592px; width:980px; font-size:28px; font-weight:600; color:#B8791F; text-align:center">rejections travel backwards — expected versus actual, and one deviation rejects the whole handoff</p>
+<p style="position:absolute; right:128px; bottom:64px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#8A929E">04</p>
+
+</section>
+
+<section id="flow" data-transition="fade" style="background:#12151A; color:#F4F2ED; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:40px">
+<h2 style="font-size:72px; font-weight:700; line-height:1.1">One run, end to end</h2>
+<table style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:28px; color:#F4F2ED; border:1px solid #2C323B; padding:16px 22px">
+<tr style="background:#1A1E25">
+<th style="width:13%; text-align:left; font-weight:700; font-family:'JetBrains Mono', 'Courier New', monospace">Time</th>
+<th style="width:19%; text-align:left; font-weight:700">Who</th>
+<th style="width:68%; text-align:left; font-weight:700">What happened</th>
+</tr>
+<tr>
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#9BA4B0">20:06</td>
+<td style="color:#E8A33D">owner</td>
+<td>Posts the task to the coordinator. This is the kickoff, and the only message that is not a correction.</td>
+</tr>
+<tr style="background:#1A1E25">
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#9BA4B0">20:12</td>
+<td style="color:#6FA8C7">coordinator</td>
+<td>Publishes the plan and architecture, opens 17 board tasks, routes four spec ambiguities for adjudication.</td>
+</tr>
+<tr>
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#9BA4B0">20:29</td>
+<td style="color:#6FA8C7">reviewer</td>
+<td>Publishes a 158-item conformance checklist, derived from the specification text only. Flags 22 items no shipped test would catch.</td>
+</tr>
+<tr style="background:#1A1E25">
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#9BA4B0">20:33</td>
+<td style="color:#6FA8C7">implementer</td>
+<td>Accepts the checklist as its contract — before writing a single line of code.</td>
+</tr>
+<tr>
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#9BA4B0">22:41</td>
+<td style="color:#6FA8C7">implementer</td>
+<td>Reports a clean build in the container and the C-items covered. Commit 5fa3caa.</td>
+</tr>
+<tr style="background:#3A2A12">
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#E8A33D">22:46</td>
+<td style="color:#E8A33D; font-weight:700">owner — decision</td>
+<td style="color:#F4D9A8">Runs the gate independently. 146 of 147. Returns two defects with expected versus actual.</td>
+</tr>
+<tr>
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#9BA4B0">23:50</td>
+<td style="color:#E8A33D">owner</td>
+<td>147 of 147 against 662893a. Accepted.</td>
+</tr>
+</table>
+<p style="position:absolute; right:128px; bottom:64px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#6E7783">05</p>
+
+</section>
+
+<section id="catch" data-transition="fade" style="background:#F4F2ED; color:#12151A; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:36px">
+<h2 style="font-size:72px; font-weight:700; line-height:1.1">One seat corrected another, before any code existed</h2>
+<div style="display:flex; flex-direction:column; gap:20px">
+<div style="background:#FFFFFF; padding:36px 44px; border-radius:14px; border-left:8px solid #6FA8C7; display:flex; flex-direction:column; gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#3E6E88; font-weight:700">coordinator · 20:12</p>
+<p style="font-size:32px; color:#12151A; line-height:1.35">Ambiguity A3 — an empty body on paying a request. Recommend: treat it as an empty object, default public.</p>
+</div>
+<div style="background:#12151A; padding:36px 44px; border-radius:14px; border-left:8px solid #E8A33D; display:flex; flex-direction:column; gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#E8A33D; font-weight:700">reviewer · 20:29</p>
+<p style="font-size:32px; color:#F4F2ED; line-height:1.35">Confirm, <b style="color:#E8A33D">with caveat.</b> The canonical stored body for idempotency comparison must be the empty object so an empty-body replay matches. A body of visibility public is a different JSON value — reusing the key across the two is 409 idempotency_key_reuse.</p>
+</div>
+</div>
+<p style="font-size:32px; color:#4A5568; line-height:1.4; width:1620px">The coordinator answered what the endpoint should <b style="color:#12151A">accept</b>. The reviewer caught that it was silently wrong about what the endpoint should <b style="color:#12151A">store</b> — and that storing the normalised form would make a legitimate retry read as key reuse.</p>
+<div style="background:#E8E5DC; padding:28px 36px; border-radius:12px">
+<p style="font-size:30px; color:#12151A; line-height:1.35">Both caveats became binding numbered items — <b style="font-family:'JetBrains Mono', 'Courier New', monospace">C-99</b>, <b style="font-family:'JetBrains Mono', 'Courier New', monospace">C-157</b> — in a 158-item contract the implementer acknowledged four minutes later.</p>
+</div>
+<p style="position:absolute; right:128px; bottom:64px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#8A929E">06</p>
+
+</section>
+
+<section id="verified" data-transition="fade" style="background:#12151A; color:#F4F2ED; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:32px">
+<h2 style="font-size:72px; font-weight:700; line-height:1.1">Two of those items are structural — and checkable today</h2>
+<div style="display:flex; gap:28px">
+<div style="flex:1; background:#1A1E25; padding:32px 36px; border-radius:14px; border-top:4px solid #6FA8C7; display:flex; flex-direction:column; gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:26px; font-weight:700; color:#6FA8C7">C-155 · no float64</p>
+<p style="font-size:26px; color:#9BA4B0; line-height:1.4">Amounts arrive as 1000, 1000.0 and 1e3 — all valid, all equal. Decode through json.Number and math/big, never a float.</p>
+<p style="font-size:26px; color:#F4F2ED; line-height:1.4"><b>Result:</b> zero matches across all 23 Go files.</p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:32px 36px; border-radius:14px; border-top:4px solid #E8A33D; display:flex; flex-direction:column; gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:26px; font-weight:700; color:#E8A33D">C-152 · one chokepoint</p>
+<p style="font-size:26px; color:#9BA4B0; line-height:1.4">A settlement that debits in a per-transfer loop passes the preview tests and loses conservation under concurrency.</p>
+<p style="font-size:26px; color:#F4F2ED; line-height:1.4"><b>Result:</b> applyDelta declared once, three call sites, all in one file.</p>
+</div>
+</div>
+<div style="background:#0C0E12; padding:28px 36px; border-radius:14px; border:1px solid #2C323B">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:26px; color:#C8D0DA; line-height:1.45">func settleBatch(users []*User, deltas []int64) *apiError {<br>&#160;&#160;&#160;&#160;for i := range users {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if users[i].Balance+deltas[i] &lt; 0 {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return errInsufficientFunds<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;for i := range users {<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span style="color:#E8A33D">applyDelta</span>(users[i], deltas[i])<br>&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;return nil<br>}</p>
+</div>
+<p style="position:absolute; left:128px; bottom:64px; font-size:24px; color:#6E7783">Architecture amended to both points at commit 83f9dde, before implementation began.</p>
+<p style="position:absolute; right:128px; bottom:64px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#6E7783">07</p>
+
+</section>
+
+<section id="miss" data-transition="fade" style="background:#12151A; color:#F4F2ED; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:40px">
+<h2 style="font-size:72px; font-weight:700; line-height:1.1; color:#E8A33D">What the factory did not catch</h2>
+<p style="font-size:36px; color:#F4F2ED; line-height:1.4; width:1620px">The reviewer was stopped at 20:34:40 to conserve budget, and never ran the verification pass it had committed to twelve minutes earlier.</p>
+<div style="display:flex; gap:28px">
+<div style="flex:1; background:#1A1E25; padding:36px; border-radius:14px; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:30px; font-weight:700; color:#F4F2ED">Defect 1</h3>
+<p style="font-size:28px; color:#9BA4B0; line-height:1.4">Exported empty collections marshalled as null instead of an empty array, so a round trip through import failed.</p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:36px; border-radius:14px; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:30px; font-weight:700; color:#F4F2ED">Defect 2</h3>
+<p style="font-size:28px; color:#9BA4B0; line-height:1.4">The password hash was base64 on export and read as raw text on import. <b style="color:#E8A33D">Nobody could log in after an import.</b></p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:36px; border-radius:14px; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:30px; font-weight:700; color:#F4F2ED">Who caught them</h3>
+<p style="font-size:28px; color:#9BA4B0; line-height:1.4">The owner, running the gate at 22:46. Not the reviewer. Fixed in 662893a with three regression tests.</p>
+</div>
+</div>
+<div style="background:#3A2A12; padding:32px 40px; border-radius:14px; border-left:8px solid #E8A33D">
+<p style="font-size:34px; color:#F4D9A8; line-height:1.35">The C-152 and C-155 properties hold. They hold because the implementer built to the contract — not because anyone verified it at the handoff.</p>
+</div>
+<p style="position:absolute; right:128px; bottom:64px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#6E7783">08</p>
+
+</section>
+
+<section id="stack" data-transition="fade" style="background:#F4F2ED; color:#12151A; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:36px">
+<h2 style="font-size:72px; font-weight:700; line-height:1.1">Four inference paths failed before one worked</h2>
+<table style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:28px; color:#12151A; border:1px solid #C9CCC6; padding:18px 24px">
+<tr style="background:#E8E5DC">
+<th style="width:30%; text-align:left; font-weight:700">Path</th>
+<th style="width:70%; text-align:left; font-weight:700">Where it broke</th>
+</tr>
+<tr>
+<td style="font-weight:600">Claude Code as the harness</td>
+<td style="color:#4A5568">Requires a paid plan or API balance. We had neither. This forced everything below.</td>
+</tr>
+<tr style="background:#EFEDE6">
+<td style="font-weight:600">OpenRouter free tier</td>
+<td style="color:#4A5568">The model was retired mid-setup — and the permission classifier runs on the same route, so the harness stops rather than degrades.</td>
+</tr>
+<tr>
+<td style="font-weight:600">Groq behind LiteLLM</td>
+<td style="color:#4A5568">Every large-context model there is a reasoning model. The harness replays reasoning_content on the next turn and Groq rejects its own output.</td>
+</tr>
+<tr style="background:#EFEDE6">
+<td style="font-weight:600">Featherless behind LiteLLM</td>
+<td style="color:#4A5568">The Anthropic-to-OpenAI translation <b style="color:#12151A">drops tool definitions.</b> A coding agent with no tools reads and writes nothing.</td>
+</tr>
+</table>
+<div style="background:#12151A; padding:36px 44px; border-radius:14px; border-left:8px solid #E8A33D; display:flex; flex-direction:column; gap:10px">
+<h3 style="font-size:30px; font-weight:700; color:#E8A33D">What worked</h3>
+<p style="font-size:32px; color:#F4F2ED; line-height:1.35">OpenCode speaks OpenAI format natively and Featherless serves OpenAI format, so the translator leaves the path entirely. Every failure above is a failure of a translation layer, not of a model.</p>
+</div>
+<p style="position:absolute; right:128px; bottom:64px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#8A929E">09</p>
+
+</section>
+
+<section id="cost" data-transition="fade" style="background:#12151A; color:#F4F2ED; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:32px">
+<h2 style="font-size:72px; font-weight:700; line-height:1.1">Measured, from the room log itself</h2>
+<p style="font-size:30px; color:#9BA4B0; line-height:1.4; width:1620px">Every seat runs with usage reporting on, so each turn's token count sits in the log next to the work that turn did. This is that log, summed — not the provider dashboard, which covers the whole account.</p>
+<div style="display:flex; gap:24px">
+<div style="flex:1; background:#1A1E25; padding:28px 32px; border-radius:12px; display:flex; flex-direction:column; gap:6px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:44px; font-weight:700; color:#F4F2ED">3 h 49 m</p>
+<p style="font-size:24px; color:#9BA4B0">wall clock, one session</p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:28px 32px; border-radius:12px; display:flex; flex-direction:column; gap:6px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:44px; font-weight:700; color:#F4F2ED">451</p>
+<p style="font-size:24px; color:#9BA4B0">messages, 206 tool calls</p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:28px 32px; border-radius:12px; display:flex; flex-direction:column; gap:6px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:44px; font-weight:700; color:#E8A33D">11,743,469</p>
+<p style="font-size:24px; color:#9BA4B0">tokens, 13 reported turns</p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:28px 32px; border-radius:12px; display:flex; flex-direction:column; gap:6px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:44px; font-weight:700; color:#F4F2ED">$11.70</p>
+<p style="font-size:24px; color:#9BA4B0">of a $25 sponsor credit</p>
+</div>
+</div>
+<table style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:28px; color:#F4F2ED; border:1px solid #2C323B; padding:16px 24px">
+<tr style="background:#1A1E25">
+<th style="width:34%; text-align:left; font-weight:700">Seat</th>
+<th style="width:16%; text-align:right; font-weight:700">Turns</th>
+<th style="width:25%; text-align:right; font-weight:700">Input</th>
+<th style="width:25%; text-align:right; font-weight:700">Output</th>
+</tr>
+<tr>
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#E8A33D">implementer</td>
+<td style="text-align:right; font-variant-numeric:tabular-nums">7</td>
+<td style="text-align:right; font-variant-numeric:tabular-nums">9,119,545</td>
+<td style="text-align:right; font-variant-numeric:tabular-nums">75,266</td>
+</tr>
+<tr style="background:#1A1E25">
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#6FA8C7">coordinator</td>
+<td style="text-align:right; font-variant-numeric:tabular-nums">3</td>
+<td style="text-align:right; font-variant-numeric:tabular-nums">1,938,353</td>
+<td style="text-align:right; font-variant-numeric:tabular-nums">122,724</td>
+</tr>
+<tr>
+<td style="font-family:'JetBrains Mono', 'Courier New', monospace; color:#6FA8C7">reviewer</td>
+<td style="text-align:right; font-variant-numeric:tabular-nums">3</td>
+<td style="text-align:right; font-variant-numeric:tabular-nums">472,656</td>
+<td style="text-align:right; font-variant-numeric:tabular-nums">14,925</td>
+</tr>
+</table>
+<p style="position:absolute; right:128px; bottom:64px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#6E7783">10</p>
+
+</section>
+
+<section id="economics" data-transition="push" style="background:#E8A33D; color:#12151A; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px; display:flex; flex-direction:column; justify-content:center; gap:40px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:220px; font-weight:700; line-height:1.0; color:#12151A">54 : 1</p>
+<h2 style="font-size:64px; font-weight:700; line-height:1.15; width:1560px">Input outweighed output fifty-four to one</h2>
+<p style="font-size:36px; color:#4A3410; line-height:1.4; width:1500px">A seat re-reads the accumulated room on every turn, so a factory costs what its own history costs — not what it produces. The implementer spent 9.1 million input tokens to emit 75 thousand, paying over and over to re-read a conversation it had mostly written itself.</p>
+
+</section>
+
+<section id="result" data-transition="fade" style="background:#F4F2ED; color:#12151A; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:36px">
+<h2 style="font-size:72px; font-weight:700; line-height:1.1">What it built: pocketful</h2>
+<div style="display:flex; gap:32px; align-items:center">
+<div style="background:#12151A; padding:36px 48px; border-radius:16px; display:flex; flex-direction:column; gap:4px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:76px; font-weight:700; color:#E8A33D; line-height:1.0">147/147</p>
+<p style="font-size:26px; color:#9BA4B0">shipped checks, isolated mode</p>
+</div>
+<p style="flex:1; font-size:32px; color:#4A5568; line-height:1.4">A wallet and payments service. Claimed stage 1, highest contiguous stage 1, run against commit b4af9b5. A single static Go binary in a scratch image, no outbound network at runtime.</p>
+</div>
+<h3 style="font-size:36px; font-weight:700; color:#12151A">Money must never be created, destroyed, or spent twice. Three invariants carry it.</h3>
+<div style="display:flex; gap:28px">
+<div style="flex:1; background:#FFFFFF; padding:36px; border-radius:14px; border-top:5px solid #6FA8C7; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:30px; font-weight:700">Conservation</h3>
+<p style="font-size:27px; color:#4A5568; line-height:1.4">The sum of all balances is constant across any storm of concurrent operations.</p>
+</div>
+<div style="flex:1; background:#FFFFFF; padding:36px; border-radius:14px; border-top:5px solid #6FA8C7; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:30px; font-weight:700">Non-negativity</h3>
+<p style="font-size:27px; color:#4A5568; line-height:1.4">No balance goes below zero under any interleaving, not even transiently.</p>
+</div>
+<div style="flex:1; background:#FFFFFF; padding:36px; border-radius:14px; border-top:5px solid #6FA8C7; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:30px; font-weight:700">At most once</h3>
+<p style="font-size:27px; color:#4A5568; line-height:1.4">An idempotency replay returns the stored outcome and moves no additional money.</p>
+</div>
+</div>
+<p style="position:absolute; left:128px; bottom:64px; font-size:24px; color:#5A6270">All amounts are exact integer counts of minor units. Rounding lives in exactly one function.</p>
+<p style="position:absolute; right:128px; bottom:64px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#8A929E">12</p>
+
+</section>
+
+<section id="deletetest" data-transition="fade" style="background:#12151A; color:#F4F2ED; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:40px">
+<h2 style="font-size:72px; font-weight:700; line-height:1.1">The delete test</h2>
+<p style="font-size:44px; color:#E8A33D; line-height:1.3; width:1620px">Take BAND out and this factory does not degrade. It disappears.</p>
+<div style="display:flex; gap:26px">
+<div style="flex:1; background:#1A1E25; padding:32px; border-radius:14px; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:29px; font-weight:700; color:#6FA8C7">The rejection has no channel</h3>
+<p style="font-size:26px; color:#9BA4B0; line-height:1.4">A bounce is a message that wakes one specific seat. Without mention routing there is nowhere for expected-versus-actual to go.</p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:32px; border-radius:14px; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:29px; font-weight:700; color:#6FA8C7">The contract has nowhere to live</h3>
+<p style="font-size:26px; color:#9BA4B0; line-height:1.4">The 158-item checklist was published to the room and read by the seat that did not write it. A pipeline has no shared surface for that.</p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:32px; border-radius:14px; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:29px; font-weight:700; color:#6FA8C7">The board is not a log</h3>
+<p style="font-size:26px; color:#9BA4B0; line-height:1.4">Seventeen tasks, claimed and closed by the seats themselves. Evidence a judge can read without trusting anyone's summary.</p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:32px; border-radius:14px; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:29px; font-weight:700; color:#E8A33D">The human stops being a peer</h3>
+<p style="font-size:26px; color:#9BA4B0; line-height:1.4">Five steering messages went into the room as messages. Outside it, each one is a restart.</p>
+</div>
+</div>
+<p style="position:absolute; right:128px; bottom:64px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#6E7783">13</p>
+
+</section>
+
+<section id="limitation" data-transition="fade" style="background:#F4F2ED; color:#12151A; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; gap:34px">
+<h2 style="font-size:72px; font-weight:700; line-height:1.1">The limitation we declare</h2>
+<div style="display:flex; gap:32px">
+<div style="flex:1; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:32px; font-weight:700">Permissions, the obvious one</h3>
+<p style="font-size:28px; color:#4A5568; line-height:1.4">The seats accept approvals automatically. That is what makes the run unattended, and it means a seat executes commands without asking anyone. The blast radius is the working directory — which is why the result repository is separate and credentials live outside it.</p>
+</div>
+<div style="flex:1; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:32px; font-weight:700">Judgment, the real one</h3>
+<p style="font-size:28px; color:#4A5568; line-height:1.4">A seat that reports work it did not do will be believed by the other seats unless one of them checks. We hit this twice: a file reported on disk three minutes before it existed, and a clean-build report that said nothing about two defects it had not thought to look for. Neither seat lied.</p>
+</div>
+</div>
+<div style="background:#E8E5DC; padding:32px 40px; border-radius:14px; display:flex; flex-direction:column; gap:12px">
+<h3 style="font-size:30px; font-weight:700">And the run was not unattended</h3>
+<p style="font-size:28px; color:#4A5568; line-height:1.4">Six human messages: one kickoff and five corrections. Three of the five are now standing sections in the mandates — derive requirements from the spec, never from test files; build in the container, never on the host; no seat idles through a stretch where it has a role. A correction the owner has to give twice is a missing mandate.</p>
+</div>
+<div style="background:#12151A; padding:32px 40px; border-radius:14px; border-left:8px solid #E8A33D">
+<p style="font-size:34px; color:#F4F2ED; line-height:1.35">The verifier is the only part of this factory that was optional, and it is the part that was cut. The result passes 147 of 147 — and we cannot claim the factory is why.</p>
+</div>
+<p style="position:absolute; right:128px; bottom:64px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#8A929E">14</p>
+
+</section>
+
+<section id="close" data-transition="fade" style="background:#12151A; color:#F4F2ED; font-family:'IBM Plex Sans', Arial, sans-serif; padding:128px 128px 160px; display:flex; flex-direction:column; justify-content:space-between">
+<div style="display:flex; flex-direction:column; gap:28px">
+<h2 style="font-size:84px; font-weight:700; line-height:1.1">Everything on this deck is in the repository</h2>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:36px; color:#E8A33D">github.com/yanerox69/dark-factory-pocketful</p>
+</div>
+<div style="display:flex; gap:26px">
+<div style="flex:1; background:#1A1E25; padding:32px; border-radius:14px; display:flex; flex-direction:column; gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:27px; font-weight:700; color:#6FA8C7">FACTORY.md</p>
+<p style="font-size:26px; color:#9BA4B0; line-height:1.4">The factory, measured. Every number on this deck, with the method that produced it.</p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:32px; border-radius:14px; display:flex; flex-direction:column; gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:27px; font-weight:700; color:#6FA8C7">room.json</p>
+<p style="font-size:26px; color:#9BA4B0; line-height:1.4">The whole room log, downloaded unedited. 451 messages, including the six that are ours.</p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:32px; border-radius:14px; display:flex; flex-direction:column; gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:27px; font-weight:700; color:#6FA8C7">mandates/</p>
+<p style="font-size:26px; color:#9BA4B0; line-height:1.4">Three files, each loaded as a seat's system prompt. Nothing in them names this track.</p>
+</div>
+<div style="flex:1; background:#1A1E25; padding:32px; border-radius:14px; display:flex; flex-direction:column; gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:27px; font-weight:700; color:#E8A33D">stage-1/</p>
+<p style="font-size:26px; color:#9BA4B0; line-height:1.4">The service. Twenty-three Go files, a Dockerfile, and one command in RUN.md.</p>
+</div>
+</div>
+<div style="background:#1A1E25; padding:32px 40px; border-radius:14px; border-left:8px solid #E8A33D">
+<p style="font-size:34px; color:#F4F2ED; line-height:1.35"><b style="color:#E8A33D">What we would change:</b> fund the verifier first. It was the cheapest seat in the room at 472 thousand input tokens, and it was the one we switched off.</p>
+</div>
+
+</section>
+
+
+<script>
+document.querySelectorAll('x-connector').forEach(function(c){
+ var x1=+c.getAttribute('x1'),y1=+c.getAttribute('y1'),x2=+c.getAttribute('x2'),y2=+c.getAttribute('y2');
+ var col=c.style.color||'#888'; var w=parseInt(c.style.borderWidth)||2;
+ var len=Math.hypot(x2-x1,y2-y1); var ang=Math.atan2(y2-y1,x2-x1)*180/Math.PI;
+ var d=document.createElement('div');
+ d.setAttribute('style','position:absolute;left:'+x1+'px;top:'+(y1-w/2)+'px;width:'+len+'px;height:'+w+'px;background:'+col+';transform:rotate('+ang+'deg);transform-origin:0 50%');
+ var h=document.createElement('div');
+ h.setAttribute('style','position:absolute;right:0;top:50%;width:0;height:0;border-left:'+(w*4)+'px solid '+col+';border-top:'+(w*3)+'px solid transparent;border-bottom:'+(w*3)+'px solid transparent;transform:translateY(-50%)');
+ d.appendChild(h); c.replaceWith(d);
+});
+</script></body></html>
+
+
+
+
