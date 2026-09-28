@@ -8,10 +8,17 @@
 
 model_list:
   # El que escribe código y planifica. 131K de contexto, ~500 tok/s.
+  #
+  # merge_reasoning_content_in_choices: los GPT-OSS son modelos de razonamiento
+  # y devuelven `reasoning_content` como campo aparte. Claude Code lo guarda en
+  # el historial y lo reenvia en el turno siguiente, y ahi Groq corta con
+  # "property 'reasoning_content' is unsupported". Fundiendolo en el contenido
+  # no existe el campo, asi que no hay nada que reenviar.
   - model_name: factory-main
     litellm_params:
       model: groq/openai/gpt-oss-120b
       api_key: os.environ/GROQ_API_KEY
+      merge_reasoning_content_in_choices: true
 
   # El modelo rápido, para las operaciones baratas de Claude Code.
   - model_name: factory-fast
@@ -26,6 +33,28 @@ model_list:
     litellm_params:
       model: groq/qwen/qwen3.8-27b
       api_key: os.environ/GROQ_API_KEY
+
+  # --- Featherless: el patrocinador del hackathon, $25 en creditos ---------
+  # Compatible con OpenAI, asi que va por la ruta generica con api_base.
+  # A diferencia del tramo gratuito de OpenRouter, esto es inferencia de pago:
+  # el clasificador de permisos de Claude Code no se queda sin modelo.
+  # Featherless SOLO expone /v1/chat/completions. Verificado el 27-09-2026
+  # con llamadas directas: chat/completions 200, /v1/responses 404.
+  #
+  # OJO: el proveedor `featherless_ai/` enruta a /v1/responses y tumba el
+  # proxy: `model group 'ff-main' failed ... No fallback was attempted`.
+  # `openai/` con `api_base` explicito fija chat/completions.
+  - model_name: ff-main
+    litellm_params:
+      model: openai/zai-org/GLM-5.2
+      api_base: https://api.featherless.ai/v1
+      api_key: os.environ/FEATHERLESS_API_KEY
+
+  - model_name: ff-fast
+    litellm_params:
+      model: openai/zai-org/GLM-5.2
+      api_base: https://api.featherless.ai/v1
+      api_key: os.environ/FEATHERLESS_API_KEY
 
 litellm_settings:
   # Un turno agéntico puede tardar. El corte por defecto se queda corto.

@@ -128,8 +128,11 @@ Cada día: congelar la carpeta, `harness check`, push, **actualizar la entrega**
 
 - [ ] Montar el vídeo con [GUION-VIDEO.md](GUION-VIDEO.md). 2:55, con la sala
       grabada
-- [ ] Rellenar los `[corchetes]`: ítems de conformidad, tests, rebotes
-- [ ] Regenerar `deck.pdf` y la portada con los números reales
+- [x] Rellenar los `[corchetes]`: hecho con datos medidos, en
+      [ENTREGA.md](ENTREGA.md) y en el `FACTORY.md` del repo de entrega
+- [x] Regenerar el deck y la portada con los números reales. El deck es ahora
+      una página, no un fichero del repo — el enlace está en
+      [ENTREGA.md](ENTREGA.md), y el PDF se exporta desde ella
 - [ ] Entrega final completa
 
 ## Sábado 3 y 4 — colchón

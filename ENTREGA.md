@@ -3,20 +3,26 @@
 Todo listo para copiar en el formulario de lablab.ai. **En inglés**, porque los
 jueces son internacionales.
 
-Los `[corchetes]` son huecos que se rellenan al final del build.
+Reescrito el 28-09-2026 contra lo que de verdad se entregó. La versión anterior
+de este fichero describía la banda de cinco agentes (`architect`, `spec-warden`,
+`builder`, `race-hunter`, `regression-guard`) sobre Claude Code y OpenRouter, con
+demo en Vercel. Nada de eso llegó a existir: el run juzgado son **tres asientos**
+sobre **OpenCode + Featherless**, y el producto es una **API en Go sin interfaz**.
+
+**Repositorio de la entrega:** https://github.com/yanerox69/dark-factory-pocketful
 
 ---
 
 ## Título
 
 ```
-Dark Factory — the band that refuses its own work
+Dark Factory — a coding-agent band built to refuse its own work
 ```
 
-Alternativa más sobria si el formulario penaliza los guiones largos:
+Alternativa más descriptiva si el formulario premia la claridad sobre el gancho:
 
 ```
-Dark Factory: a coding agent band with two customs posts
+Dark Factory: three coding agents building a payments API in one BAND room
 ```
 
 ---
@@ -26,9 +32,9 @@ Dark Factory: a coding agent band with two customs posts
 Para la tarjeta del listado. Respeta el límite de caracteres del formulario.
 
 ```
-A band of coding agents that plans, implements and verifies a payments API —
-where four of the five agents are forbidden from writing code, and one
-deviation from the spec rejects the whole handoff.
+Three coding agents in one BAND room build a payments API against a written
+specification. Two of the three are forbidden from writing code — their only
+job is to refuse handoffs that do not conform.
 ```
 
 *(186 caracteres)*
@@ -38,107 +44,133 @@ deviation from the spec rejects the whole handoff.
 ## Descripción larga
 
 ```
-Dark Factory is a software factory built in BAND Desktop: five coding agents
-sharing one room, coordinating entirely through @mention routing, building a
-wallet and payments service against a written specification.
+Dark Factory is a software factory built in BAND Desktop: three coding-agent
+seats sharing one room, coordinating entirely through @mention routing,
+building a wallet and payments service against a written specification.
 
 THE DESIGN DECISION
 
-The grading for this challenge is literal and automated — exact field names,
-exact status codes, exact data-testid values. A beautiful screen with a
-mistyped attribute scores zero. So the competitive advantage is not
-implementing faster; it is refusing to hand off anything that does not
-conform.
+Grading for this challenge is literal and automated — exact field names, exact
+status codes, exact error codes. A correct-looking service with one mistyped
+attribute scores nothing. So the competitive advantage is not implementing
+faster; it is refusing to hand off anything that does not conform.
 
-That shaped the crew ratio. One implementer, three verifiers, one planner.
-Four of the five agents are forbidden from writing production code:
+That shaped the crew ratio. One implementer, one verifier, one planner who also
+holds the gate. Two of the three seats are forbidden from writing production
+code:
 
-- architect — plans, splits the work, runs the full gate, renders verdicts
-- spec-warden — literal conformance with the written specification
-- builder — the JSON API and the web UI
-- race-hunter — concurrency, idempotency replay, malformed input
-- regression-guard — the golden suite and the baseline test count
+- coordinator — plans, splits the work, routes spec ambiguities, runs the gate
+- implementer — the Go service, the Dockerfile, the tests. The only seat that
+  writes
+- reviewer — conformance against the specification text, never against the
+  implementer's report
+
+All three run the same harness and the same model: OpenCode against Featherless
+AI, model zai-org/GLM-5.2. Nothing here comes from giving a role a better
+model. The only difference between the seats is the mandate file, which the
+runner loads as that seat's system prompt — so the mandate is not
+documentation, it is the seat.
 
 HOW WORK MOVES
 
-Adding an agent to a room does not wake it; a message must mention it. So
-every handoff is an explicit @mention, and that is the wiring.
+Adding a seat to a room does not wake it; a message must mention it. So every
+handoff is an explicit @mention, and that is the wiring.
 
-Crucially, handoff targets are never hardcoded. Each role instructs the agent
-to inspect the room participants at handoff time and mention whoever holds the
-next role. The line can be re-crewed at runtime, and an agent that finds the
-expertise missing can recruit another agent into the room and delegate to it.
+Handoff targets are never hardcoded. Each mandate tells the seat to inspect the
+room participants at handoff time and mention whoever holds the next role. The
+line can be re-crewed at runtime without editing a mandate.
 
-Rejections travel backwards. Any customs post can bounce work to the builder
-with expected-versus-actual. One deviation rejects the whole handoff.
+Rejections travel backwards, and one deviation rejects the whole handoff.
 
-WHAT IT PRODUCED
+WHAT THE FACTORY CAUGHT
 
-Before the build window opened, the band built a reservation service end to
-end from a one-paragraph brief, as a pipeline rehearsal. 87 tests, 87 passing
-— run independently rather than taken from the agents' own report, since the
-whole design rests on not trusting reports.
+Before any code existed, the reviewer turned the specification into a 158-item
+numbered conformance checklist — derived from the spec text only, deliberately
+not from the shipped test suite. The package ships 79% of stage 1's checks and
+the graded run uses 100%, so a checklist transcribed from the tests encodes the
+sample's blind spots as the requirement. The reviewer flagged 22 items as
+spec-only: requirements no shipped test would have caught.
 
-Three behaviours emerged that were never written into the brief:
+Then one seat corrected another. The coordinator resolved an ambiguity about
+what an empty request body means, recommending it be treated as an empty
+object. The reviewer confirmed the reading and rejected it as incomplete: the
+canonical STORED body for idempotency comparison must also be the empty object,
+or a legitimate retry reads as a key reuse. The coordinator had answered what
+the endpoint should accept; the reviewer caught that it was silently wrong
+about what the endpoint should store. Both caveats became binding numbered
+items in the contract, acknowledged by the implementer four minutes later,
+before a line of code was written.
 
-- The race-hunter raised a race, disproved it, and retracted it in the open.
-  The architect recorded it as "the honest RH-5 ghost withdrawal".
-- The race-hunter corrected its supervisor on a factual detail before it was
-  baked into the gate: "the count is now 87, not 83." It was right.
-- The architect signed off the atomicity chokepoint by file and line rather
-  than accepting the builder's summary.
+Two of those items were structural, and both are checkable in the shipped
+binary today: no float64 anywhere on the money path (zero matches across all 23
+Go files), and every money movement through a single chokepoint under the mutex
+(applyDelta, declared once, three call sites, all in one file — a settlement
+checks every wallet's net position first, then applies, all or none).
 
-A pipeline cannot retract its own finding or correct the stage above it.
+WHAT IT DID NOT CATCH
 
-THE PRODUCT
+The reviewer was stopped partway through the run to conserve budget, and never
+ran the verification pass it had committed to. Two defects shipped past the
+seats: exported empty collections marshalled as null instead of an empty array,
+and a password hash that was base64 on export but read as raw text on import —
+which meant nobody could log in after an import. The owner caught both by
+running the gate independently. The structural properties above hold, but they
+hold because the implementer built to the contract, not because anyone verified
+it at the handoff.
 
-pocketful, a wallet and payments clone. Money must never be created,
-destroyed, or spent twice. Three invariants carry it: conservation (the sum of
-all balances is constant across any storm of operations), non-negativity under
-every interleaving, and exactly-once effect on idempotency replay. Integer
-minor units only, and rounding in exactly one function — replicated rounding
-diverges, and divergent rounding is money created.
+MEASURED
 
-[__ conformance items, __ tests, __ bounces before the gate went green.]
+3 hours 49 minutes, one session, no restarts. 451 messages carrying 206 tool
+calls. 11,743,469 tokens across 13 reported turns — 11,530,554 in, 212,915 out.
+$11.70 of a $25 Featherless credit. Result: 147 of 147 shipped checks, claimed
+stage 1, run in isolated mode.
+
+Input outweighed output 54 to 1. That ratio is the real economics of a room: a
+seat re-reads the accumulated room on every turn, so a factory costs what its
+own history costs, not what it produces. The implementer spent 9.1 million
+input tokens to emit 75 thousand. It is also why switching two seats off was
+the lever that let the run finish inside the credit.
+
+Every one of these figures comes from the room log that ships in the
+repository, not from a provider dashboard.
 
 THE DELETE TEST
 
-Take BAND out and the factory does not degrade — it disappears. The bounce has
-no channel. Runtime recruitment has no registry. The work board, versioned
-plan and mirrored traces that constitute the verified result have nowhere to
-live. And the human stops being a peer in the same room as the work.
+Take BAND out and this factory does not degrade — it disappears. The rejection
+has no channel: a bounce is a message that wakes one specific seat. The
+contract has nowhere to live: the 158-item checklist was published to the room
+and read by the seat that did not write it. The work board is not a log: 17
+tasks, claimed and closed by the seats themselves. And the human stops being a
+peer in the same room as the work — outside it, every correction is a restart
+with no memory of what was already agreed.
 
 THE LIMITATION WE DECLARE
 
-This factory is not fully dark. An agent cannot approve another agent's
-permission request, and there is no bulk approval, so operations that trigger
-one require a human. Approval policies are set so routine file work needs no
-human; what remains are genuine exceptions, and those get a person. Claiming
-otherwise would be false.
+The seats run with approvals accepted automatically. That is what makes the run
+unattended, and it means a seat executes commands in its working directory
+without asking anyone. The blast radius is the working directory, which is why
+the result repository is separate from everything else and why credentials live
+outside it.
+
+The honest limit is not permissions, it is judgment. A seat that reports work
+it did not do will be believed by the other seats unless one of them checks. We
+hit this twice, and neither seat lied — both reported what they believed.
+
+And the run was not unattended. It took six human messages: one kickoff and
+five corrections. Three of those five are now standing sections in the
+mandates, because a correction the owner has to give twice is a missing
+mandate. The verifier is the only part of this factory that was optional, and
+it is the part that was cut. The result passes 147 of 147, and we cannot claim
+the factory is why.
 ```
 
 ---
-
-## Slides en PDF
-
-✅ **Hecho:** [`deck.pdf`](deck.pdf) — 12 páginas a 1920×1080, 16:9 apaisado.
-
-Generado desde las diapositivas del deck con Chrome en headless. Tres cosas que
-hay que respetar si se regenera:
-
-- `print-color-adjust: exact` en todo, o los fondos oscuros salen en blanco
-- `@page { size: 1920px 1080px; margin: 0 }` para el 16:9 exacto
-- El elemento `<x-shape kind="arrow-right">` del visor de slides **no existe**
-  fuera de él: se sustituye por un `clip-path` de CSS o las flechas desaparecen
-
-El deck también se puede descargar desde su propia página, que es la vía oficial.
-Este PDF está en el repo para no depender de eso el día de la entrega.
 
 ## Tags
 
 **Tecnología:**
 ```
-BAND, Jam, Claude Code, OpenRouter, Node.js, multi-agent, agentic coding
+BAND, OpenCode, Featherless AI, GLM-5.2, Go, Docker, multi-agent, agentic coding
 ```
 
 **Categoría:**
@@ -148,33 +180,89 @@ Developer Tools, Multi-Agent Systems, Autonomous Software Engineering
 
 ---
 
+## Slides en PDF
+
+✅ **Hecho:** 15 diapositivas, con notas del ponente.
+
+https://claude.ai/artifact/XdwuYSEbNLzw36ubYSFNYh
+
+Hay dos formas de tener el PDF, y ambas valen:
+
+**1. Desde la propia página** — **Share › Export**. Es la vía buena: usa el
+renderizador real del deck. El deck es privado hasta que lo compartas desde ese
+mismo menú.
+
+**2. [`deck.pdf`](deck.pdf) en la raíz de este repo.** Reconstruido el
+28-09-2026 desde el HTML de las diapositivas con Chrome en headless. 15 páginas
+a 20×11,25 pulgadas, que es 16:9 exacto.
+
+⚠️ Si se regenera, dos cosas que cuestan un rato descubrir:
+
+- **`@page` en píxeles no funciona.** Chrome ignora `size: 1920px 1080px` y deja
+  bandas del color del fondo a la derecha y abajo. Hay que darlo en pulgadas:
+  `size: 20in 11.25in`.
+- **Los márgenes por defecto de Chrome cortan texto.** El visor de diapositivas
+  anula los de `h1`, `p` y `table`; Chrome no. Sin un `margin:0` explícito, la
+  última línea de cada columna se pierde por debajo del borde.
+- Los `<x-connector>` del diagrama de enrutamiento no existen fuera del visor.
+  El fichero de impresión lleva un polyfill que los convierte en divs rotados
+  con una punta de flecha en CSS.
+
+El `deck.pdf` anterior —el del 19 de septiembre, con la banda de cinco agentes—
+se borró ese mismo día. Un PDF obsoleto en la raíz es justo lo que se sube por
+error el día de la entrega.
+
+---
+
 ## Imagen de portada (16:9)
 
-✅ **Hecha:** [`web/cover.png`](web/cover.png) — 1280×720, ratio 1.7778 exacto.
+✅ **Rehecha:** [`web/cover.png`](web/cover.png) — 1280×720, ratio 1.7778 exacto.
 
-El criterio: en el listado de lablab esto se ve en miniatura, así que solo puede
-leerse **una** cosa. Se eligió la **flecha de retorno** en ámbar, el único acento
-de color de la composición, porque el rebote es el argumento entero del proyecto.
-Todo lo demás —los cinco nodos, el `builder` destacado, el título— queda en
-segundo plano deliberadamente.
+Actualizada a los tres asientos reales y al stack real (`BAND · OpenCode ·
+GLM-5.2 · Go · MIT`). El criterio no cambia: en el listado esto se ve en
+miniatura, así que solo puede leerse **una** cosa, y esa cosa es la **flecha de
+retorno** en ámbar — el rebote es el argumento entero del proyecto.
 
-Sin caras, sin robots, sin cerebros de circuitos: los tres tópicos de portada de
-proyecto de IA.
+Sin caras, sin robots, sin cerebros de circuitos.
 
 ### Regenerarla
 
-La fuente es [`web/cover.html`](web/cover.html), así que se puede editar y
-volver a exportar:
+La fuente es [`web/cover.html`](web/cover.html):
 
 ```powershell
-& "C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --disable-gpu `
-  --hide-scrollbars --force-device-scale-factor=1 --window-size=1280,720 `
-  --virtual-time-budget=8000 --screenshot="web\cover.png" `
-  "file:///C:/Users/Yanero/Desktop/dark-factory/web/cover.html"
+& "C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=1280,720 --virtual-time-budget=10000 --screenshot="web\cover.png" "file:///C:/Users/Yanero/Desktop/dark-factory/web/cover.html"
 ```
 
-⚠️ `--virtual-time-budget` es necesario: sin él, Chrome captura antes de que
-carguen las fuentes de Google y la portada sale con tipografía de sistema.
+⚠️ Dos trampas, las dos verificadas el 28-09-2026:
+
+- `--virtual-time-budget` es necesario: sin él Chrome captura antes de que
+  carguen las fuentes de Google y la portada sale con tipografía de sistema.
+- **Chrome cachea la página `file://`.** Si editas el HTML y vuelves a lanzar el
+  comando, puede escribirte el PNG anterior con un `LastWriteTime` nuevo, que es
+  justo lo que engaña. Renderiza a una ruta temporal, míralo, y solo entonces
+  cópialo sobre `web/cover.png`.
+
+---
+
+## Demo desplegada — no hace falta
+
+El reglamento genérico de lablab.ai pide una URL de demo funcional en Vercel,
+Streamlit o Replit. **No aplica a esta pista.**
+
+La guía del participante se declara autoritativa (*"This guide is the
+authoritative rules and instructions for participants"*) y lo que enumera como
+requisito de elegibilidad es:
+
+> *"A submitted presentation, video and public GitHub repository as specified
+> below."*
+
+Los cuatro gates son el roster de asientos, el log de sala con `@handle` en
+ambas direcciones, que `stage-1/` arranque en un contenedor limpio siguiendo su
+`RUN.md`, y que los mandatos sean genéricos. **Ninguno menciona un despliegue.**
+Los jueces construyen el `Dockerfile` y hablan con el contenedor por HTTP.
+
+Además, `stage-1` de pocketful es una API JSON sin interfaz: la UI es el
+stage 2, que no construimos. No hay nada que desplegar en Vercel.
 
 ---
 
@@ -184,61 +272,37 @@ carguen las fuentes de Google y la portada sale con tipografía de sistema.
 - [ ] Descripción corta
 - [ ] Descripción larga
 - [ ] Tags de tecnología y categoría
-- [ ] Portada PNG/JPG **16:9**
-- [ ] Vídeo MP4, **menos de 5 min, máx. 300 MB**
-- [ ] Slides en **PDF**
-- [ ] Repositorio GitHub **público** con licencia **MIT**
-- [ ] URL de demo funcional (Vercel)
+- [x] Portada PNG **16:9** — `web/cover.png`
+- [ ] Vídeo MP4, **menos de 5 min, máx. 300 MB** — **debe mostrar la sala de BAND**
+- [x] Slides en **PDF** — exportar desde el deck
+- [x] Repositorio GitHub **público** con licencia **MIT**
+- [x] ~~URL de demo funcional~~ — no aplica a esta pista, ver arriba
 
 ---
 
-## README del repositorio
+## ⚠️ Lo que la rúbrica va a penalizar en este run
 
-Para la raíz del repo público. Los jueces suelen abrirlo antes que nada.
+Conviene saberlo antes de enviar, no después. El criterio **Agent Teamwork**
+vale el 25% y tiene dos mitades:
 
-```markdown
-# Dark Factory — pocketful
+> *"**Autonomy:** in the run you submit, the task you dispatch for each stage is
+> the only human input — **no steering, approvals, debugging hints or reruns**
+> until it passed."*
 
-A software factory built in BAND Desktop: five coding agents in one room,
-coordinating through @mention routing, building a wallet and payments service
-against a written specification.
+El run entregado tiene **cinco mensajes de dirección** además del arranque. Eso
+incumple la mitad de autonomía tal y como está escrita.
 
-**Live demo:** https://dark-factory-sepia.vercel.app  ·  **Repository:** https://github.com/yanerox69/dark-factory  ·  Licence: MIT
+> *"**Collaboration:** the seats really shared the work — more than one seat did
+> it, review changed something..."*
 
-## The idea
+Aquí vamos mejor: la revisión **sí** cambió algo y está trazado. Pero el
+implementer escribió el 68% de los mensajes y el reviewer el 6%, y la guía avisa
+de que *"one seat carrying 90% of it looks the same"*.
 
-Grading for this challenge is literal and automated. So the advantage is not
-implementing faster — it is refusing to hand off anything that does not
-conform. Four of the five agents are forbidden from writing production code.
+Y el criterio **App** (25%) mide la UI del stage 2, que no existe.
 
-| Agent | Role | Writes code |
-|---|---|---|
-| `architect` | Plans, splits, runs the full gate, renders verdicts | No |
-| `spec-warden` | Literal conformance with the specification | No |
-| `builder` | The JSON API and the web UI | **Yes** |
-| `race-hunter` | Concurrency, idempotency, malformed input | No |
-| `regression-guard` | Golden suite and baseline test count | No |
-
-## How work moves
-
-Adding an agent to a room does not wake it — a message must mention it. Every
-handoff is an explicit `@mention`, and handoff targets are never hardcoded:
-each agent inspects the room at handoff time and mentions whoever holds the
-next role.
-
-Rejections travel backwards. One deviation rejects the whole handoff.
-
-## Repository layout
-
-| Path | What it is |
-|---|---|
-| `roles/` | The persistent role instructions each agent carries |
-| `plan.md`, `architecture.json` | The room plan and its Arch diagram |
-| `banda/` | The band design and the mention graph |
-| `dry-run/` | A rehearsal service the band built end to end. 87 tests, 87 passing. Evidence the factory works — not a hackathon deliverable |
-
-## Running it
-
-See `FABRICA.md` for the agent and room setup, and `OPENROUTER.md` for the
-inference configuration.
-```
+**La decisión:** con el saldo restante (~$13.30, aproximadamente un run) se puede
+intentar un run limpio sin dirección humana, que es exactamente lo que la
+rúbrica premia. El riesgo es quedarse sin saldo y sin entrega mejor. Lo que sí
+está hecho es declararlo todo en `FACTORY.md` y en la descripción larga: un
+jurado que lo lea en el log y no en nuestra memoria descriptiva puntúa peor.

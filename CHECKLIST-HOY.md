@@ -66,7 +66,13 @@ Verificación: en la sesión nueva, el comando `/jam` debe aparecer disponible.
 
 `Agents → New local agent`, uno por uno. **Elige runtime Jam-owned (headless)**,
 no sesión de terminal: un agente terminal muere al cerrar su ventana; uno
-Jam-owned se relanza solo con el siguiente mensaje.
+Jam-owned sobrevive a cerrar la ventana y se puede volver a arrancar.
+
+⚠️ **Corregido el 24-09-2026.** Aquí ponía que un agente Jam-owned «se relanza
+solo con el siguiente mensaje». **Es falso**, comprobado dos veces: si el
+runtime está en `Stopped`, una mención en la sala no lo arranca, no crea nada y
+no devuelve ningún error. Arrancarlo es manual, desde Jam Desktop. Detalles en
+[FABRICA.md](FABRICA.md), sección «Cuando la banda está parada».
 
 La descripción debe tener **mínimo 10 caracteres** o el formulario no deja crear.
 

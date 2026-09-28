@@ -149,6 +149,56 @@ está ocioso en la sala. No arranca en frío un worker parado. Si el día 26 a l
 12:00 la banda está caída, mandar la tarea a la sala no hace absolutamente nada
 y no te lo dice nadie. **Comprueba `jam list` antes de mandar trabajo.**
 
+#### Confirmado el 24-09-2026, y no era falta de proveedor
+
+La primera vez cabía sospechar que el runtime no arrancaba porque no había
+inferencia detrás. Se repitió con **Groq operativo vía LiteLLM** y el preflight
+entero en verde: mismo resultado exacto. Mensaje entregado, `architect` en
+`Stopped`, sin fichero y sin error. La causa no es el proveedor.
+
+#### No hay forma de arrancarlos por CLI
+
+Comprobado:
+
+| Comando | Resultado |
+|---|---|
+| `jam restart --as <handle>` | `has no running worker` — sirve para desatascar, no para arrancar |
+| `jam agent ...` | solo tiene `create` e `instructions` |
+
+**Un runtime Jam-owned parado se arranca desde la interfaz de Jam Desktop.**
+No hay atajo por consola. Tenlo presente el día 1: si la banda está caída, el
+arranque es a mano y en la app.
+
+## 🚨 `jam plugin install` puede dejarte sin integración
+
+Ocurrió el 24-09-2026. El comando **borra el registro antes de rehacerlo**, y si
+la segunda mitad falla te quedas sin integración de Claude Code.
+
+Lo que hizo: aviso de que *«the registered jam marketplace points at a different
+source — replacing it with the bundled marketplace»*, y a continuación intento
+de clonar `thenvoi/tjam` **por SSH**, que falla si `github.com` no está en tu
+`known_hosts`:
+
+```
+× Failed to add marketplace: ... Host key verification failed.
+```
+
+Resultado: `known_marketplaces.json` en `{}`, la carpeta `marketplaces` vacía y
+`installed_plugins.json` sin la entrada `band-peer@jam`. Los ficheros del plugin
+siguen en caché, pero el preflight pasa a `[FAIL] not installed`.
+
+**El arreglo, sin red y sin SSH** — Jam trae la marketplace empaquetada:
+
+```powershell
+jam plugin install --source "$env:LOCALAPPDATA\jam\claude-plugin-marketplace"
+```
+
+Eso reinstala desde disco y devuelve el preflight a verde.
+
+⚠️ **No ejecutes `jam plugin install` a secas** mientras la integración
+funcione. Si el preflight ya da `[ok]` en la fila de Claude Code, no lo toques:
+el comando desmonta antes de montar, y la parte que monta necesita red.
+
 ### Casi todo el CLI necesita el worker vivo
 
 Cualquier comando con `--session <agente>` o `--as <agente>` falla con

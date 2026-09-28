@@ -10,6 +10,11 @@ secrets/
 **/credentials.json
 **/.credentials.json
 
+# Identidades de los asientos de Band: agent_id + api_key acuñada una sola vez.
+# Su sitio es band-work\, fuera de todo repo; esto es solo la red de seguridad
+# por si alguien lo copia aquí sin pensar.
+agent_config.yaml
+
 # Dependencias y build
 node_modules/
 dist/
@@ -28,3 +33,11 @@ Thumbs.db
 
 # Salida del ensayo
 dry-run/node_modules/
+
+# Vídeo: material en bruto e intermedio. Los rótulos generados (cards/, png/,
+# clips/) sí se versionan porque se regeneran desde el HTML; esto no.
+# El montaje final se entrega por lablab, no por el repositorio.
+video/footage/
+video/frames/
+video/orden.txt
+video/montaje.mp4
