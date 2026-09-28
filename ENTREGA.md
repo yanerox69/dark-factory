@@ -189,8 +189,10 @@ https://claude.ai/artifact/XdwuYSEbNLzw36ubYSFNYh
 El PDF se exporta desde la propia página: **Share › Export**. El deck es privado
 hasta que lo compartas desde ese mismo menú.
 
-⚠️ El `deck.pdf` que hay en la raíz de este repo es de la versión anterior del
-proyecto —cinco agentes, Claude Code, Vercel— y **no sirve para la entrega**.
+El `deck.pdf` que había en la raíz de este repo se borró el 28-09-2026: era del
+19 de septiembre, anterior al inicio de la ventana de build, y describía la
+banda de cinco agentes. Un PDF obsoleto en la raíz es justo lo que se sube por
+error el día de la entrega.
 
 ---
 
