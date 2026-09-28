@@ -57,16 +57,26 @@ Dale aire. Que se lea entero.
 
 Todas de la sala del 27 en Band Desktop. Graba de sobra y recorta después.
 
-| # | Qué | Dónde | Mín. |
-|---|---|---|---|
-| A | La sala con los tres asientos en la lista de participantes | Jam → Chat | 10 s |
-| B | El mensaje de arranque de las 20:06 y el `coordinator` despertando | Jam → Chat | 12 s |
-| C | La checklist de 158 ítems, haciendo scroll por ella | Jam → Chat, 20:29 | 20 s |
-| D | **El rechazo**: A3 del coordinator → "CONFIRM, with caveat" del reviewer | Jam → Chat | 25 s |
-| E | Un `@mention` de asiento a asiento, legible, con respuesta en el otro sentido | Jam → Chat, 20:33–20:34 | 15 s |
-| F | El tablero con las 17 tareas y sus estados | Jam → Work | 15 s |
-| G | La suite: `147/147`, `claimed stage: 1` | Terminal | 15 s |
-| H | `money.go` — `applyDelta` y `settleBatch` | Editor | 10 s |
+⚠️ **Las horas de abajo son las que muestra Jam**, o sea locales. El `room.json`
+guarda UTC, cuatro horas por delante: lo que el log llama `23:50:29` es
+`7:50 p.m.` en pantalla. Si buscas por la hora del log no encuentras nada.
+
+La sala, en hora de pantalla, va de **4:05 p.m. a 7:55 p.m.** del 27.
+
+| # | Qué | Dónde | Hora en Jam | Mín. |
+|---|---|---|---|---|
+| A | La sala con los tres asientos en la lista de participantes | Jam → Chat | — | 10 s |
+| B | El mensaje de arranque y el `coordinator` despertando | Jam → Chat | **4:06 p.m.** | 12 s |
+| C | La checklist de 158 ítems, haciendo scroll por ella | Jam → Chat | **4:29 p.m.** | 20 s |
+| D | **El rechazo**: A3 del coordinator → "CONFIRM, with caveat" del reviewer | Jam → Chat | **4:12 → 4:29 p.m.** | 25 s |
+| E | Un `@mention` de asiento a asiento, con respuesta en el otro sentido | Jam → Chat | **4:33 → 4:34 p.m.** | 15 s |
+| F | El tablero con las 17 tareas y sus estados | Jam → Work | — | 15 s |
+| G | La suite: `147/147`, `claimed stage: 1` | Terminal | — | 15 s |
+| H | `money.go` — `applyDelta` y `settleBatch` | Editor | — | 10 s |
+
+Para orientarte en el scroll: el mensaje de las **7:50 p.m.** es el tuyo diciendo
+`662893a passes the shipped checks 147/147`. Es el final de la sala. Desde ahí,
+sube.
 
 ⚠️ **Antes de grabar cualquier terminal o editor, comprueba que no hay claves a
 la vista.** `agent_config.yaml` tiene las `api_key` de los tres asientos y una
@@ -173,7 +183,7 @@ No quedan corchetes. Todo esto sale de `room.json` y del historial de git:
 
 | | |
 |---|---|
-| Duración | 3 h 49 m (20:05:39 → 23:55:03, sin reinicios) |
+| Duración | 3 h 49 m (20:05:39 → 23:55:03 **UTC**, sin reinicios — en Jam, 4:05 → 7:55 p.m.) |
 | Mensajes | 451, con 206 llamadas a herramienta |
 | Tokens | 11.743.469 — 11.530.554 entrada / 212.915 salida |
 | Ratio | entrada : salida = **54 : 1** |
